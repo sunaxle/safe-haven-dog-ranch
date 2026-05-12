@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchandise Shop | Safe Haven Dog Ranch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 6rem 0;
+      text-align: center;
+    }
+    .page-header h1 {
+      color: var(--text-light);
+      font-size: 3.5rem;
+    }
+    .shop-section {
+      padding: 4rem 0;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+    .product-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    .product-img {
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .product-price {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      margin: 1rem 0;
+    }
+    .shop-notice {
+      background-color: #ffe8d1;
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      margin-bottom: 3rem;
+      border-left: 5px solid var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Adopt</a></li>
+          <li><a href="#">Foster</a></li>
+          <li><a href="special-needs.html">Special Needs Outreach</a></li>
+          <li><a href="shop.html" style="color: var(--primary-color);">Shop</a></li>
+          <li><a href="donate.html" class="btn btn-accent">Donate</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header fade-in">
+    <div class="container">
+      <h1>Merchandise Shop</h1>
+      <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Buy a treat, empower a life. Every purchase directly supports the ranch and our amazing special needs artisans.</p>
+    </div>
+  </section>
+
+  <!-- Shop Content -->
+  <section class="shop-section fade-in">
+    <div class="container">
+      
+      <div class="shop-notice fade-in">
+        <h3>🛍️ Purchases with a Purpose</h3>
+        <p>A portion of the profits from these items goes directly to the rescue, and a portion goes directly to the incredible young adults in our Special Needs Outreach Program who hand-made them. Thank you for your support!</p>
+      </div>
+
+      <div class="shop-grid">
+        <!-- Product 1 -->
+        <div class="product-card fade-in">
+          <img src="assets/dog_treats_1778545416996.png" alt="Artisan Dog Treats" class="product-img">
+          <div class="product-info">
+            <h2>Artisan Dog Biscuits</h2>
+            <p>Hand-baked with love by our incredible volunteers. Healthy, natural ingredients your dog will go crazy for.</p>
+            <div class="product-price">$12.00</div>
+            <button class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card fade-in" style="transition-delay: 0.1s;">
+          <img src="assets/handmade_bracelets_1778545429947.png" alt="Handmade Beaded Bracelets" class="product-img">
+          <div class="product-info">
+            <h2>Handmade Beaded Bracelets</h2>
+            <p>Beautifully crafted, colorful bracelets made by our talented special needs artisans. Wear it with pride!</p>
+            <div class="product-price">$8.00</div>
+            <button class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-in">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Safe Haven Dog Ranch</h3>
+          <p>Weslaco, TX</p>
+          <p>Email: admin@safehavendogranch.com</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Adopt</a></li>
+            <li><a href="special-needs.html">Special Needs Program</a></li>
+            <li><a href="shop.html">Merchandise Shop</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Trust & Transparency</h3>
+          <p>Safe Haven Dog Ranch is a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Safe Haven Dog Ranch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe Haven Dog Ranch | Rescuing Dogs, Empowering People</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Additional Page Specific CSS inline or keep all in styles.css -->
+  <style>
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-light);
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/hero_rescue_dog_1778545401749.png') center/cover no-repeat;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Dual Mission Cards */
+    .mission-section {
+      padding: 6rem 0;
+      background-color: var(--bg-white);
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-top: 5px solid var(--primary-color);
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      font-size: 1.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero-btns { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Adopt</a></li>
+          <li><a href="#">Foster</a></li>
+          <li><a href="special-needs.html">Special Needs Outreach</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="donate.html" class="btn btn-accent">Donate</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in" style="background: none; overflow: hidden; position: relative;">
+    <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;">
+      <source id="hero-video-source" src="real photos/IMG_3750.mov" type="video/mp4">
+    </video>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: -1;"></div>
+    
+    <div class="container" style="position: relative; z-index: 1;">
+      <h1 id="hero-headline">Giving Every Dog a Second Chance</h1>
+      <p id="hero-subheadline">Rescuing Dogs, Empowering People.</p>
+      <div class="hero-btns">
+        <a href="#adopt" class="btn btn-primary">Meet the Dogs</a>
+        <a href="donate.html" class="btn btn-accent">Support Our Mission</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dual Mission Section -->
+  <section class="mission-section fade-in">
+    <div class="container">
+      <h2 class="section-title">Our Dual Mission</h2>
+      <div class="cards-grid">
+        <div class="card fade-in">
+          <h3 id="mission-1-title">For the Dogs</h3>
+          <p id="mission-1-text">Providing sanctuary, medical care, and a second chance at a first-class life for dogs in need across the community.</p>
+          <a href="#adopt" class="btn btn-primary" style="margin-top: 1rem;">Adopt a Dog</a>
+        </div>
+        <div class="card fade-in" style="border-top-color: var(--secondary-color);">
+          <h3 id="mission-2-title">For the Community</h3>
+          <p id="mission-2-text">Empowering special needs young adults through connection, real-world skill-building, and purpose-driven work at the ranch.</p>
+          <a href="special-needs.html" class="btn btn-primary" style="background-color: var(--secondary-color); margin-top: 1rem;">Learn About the Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-in">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Safe Haven Dog Ranch</h3>
+          <p>Weslaco, TX</p>
+          <p>Email: admin@safehavendogranch.com</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Adopt</a></li>
+            <li><a href="special-needs.html">Special Needs Program</a></li>
+            <li><a href="shop.html">Merchandise Shop</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Trust & Transparency</h3>
+          <p>Safe Haven Dog Ranch is a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Safe Haven Dog Ranch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
