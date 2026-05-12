@@ -2,23 +2,51 @@ backend:
   name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets"
+public_folder: "assets"
 
 collections:
   - name: "site_content"
-    label: "Website Text & Photos"
+    label: "Website Pages"
     editor:
       preview: false
     files:
       - file: "site-content.json"
-        label: "Homepage Settings"
+        label: "Homepage"
         name: "homepage"
         fields:
           - {label: "Hero Headline", name: "hero_headline", widget: "string"}
           - {label: "Hero Subheadline", name: "hero_subheadline", widget: "string"}
           - {label: "Hero Video/Image", name: "hero_media", widget: "file"}
           - {label: "Mission 1 Title", name: "mission_1_title", widget: "string"}
-          - {label: "Mission 1 Text", name: "mission_1_text", widget: "text"}
+          - {label: "Mission 1 Text", name: "mission_1_text", widget: "markdown"}
           - {label: "Mission 2 Title", name: "mission_2_title", widget: "string"}
-          - {label: "Mission 2 Text", name: "mission_2_text", widget: "text"}
+          - {label: "Mission 2 Text", name: "mission_2_text", widget: "markdown"}
+      - file: "special-needs.json"
+        label: "Special Needs Page"
+        name: "special_needs"
+        fields:
+          - {label: "Page Headline", name: "headline", widget: "string"}
+          - {label: "Subheadline", name: "subheadline", widget: "string"}
+          - {label: "Hero Image", name: "hero_image", widget: "image"}
+          - {label: "Main Content", name: "content", widget: "markdown"}
+      - file: "shop.json"
+        label: "Shop Page"
+        name: "shop"
+        fields:
+          - {label: "Page Headline", name: "headline", widget: "string"}
+          - {label: "Subheadline", name: "subheadline", widget: "string"}
+          - {label: "Content", name: "content", widget: "markdown"}
+      - file: "dogs.json"
+        label: "Adoptable Dogs"
+        name: "dogs"
+        fields:
+          - label: "Dogs List"
+            name: "dogs_list"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Photo", name: "photo", widget: "image"}
+              - {label: "Breed/Mix", name: "breed", widget: "string"}
+              - {label: "Age", name: "age", widget: "string"}
+              - {label: "Background Story", name: "story", widget: "markdown"}

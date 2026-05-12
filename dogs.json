@@ -1,0 +1,39 @@
+{
+  "dogs_list": [
+    {
+      "name": "Buster",
+      "photo": "assets/rescue_dog_1_1778552185105.png",
+      "breed": "Terrier Mix",
+      "age": "2 Years Old",
+      "story": "Buster was found wandering near a busy highway, frightened and alone. Despite his rough start, this scruffy little guy has the biggest heart. He loves to cuddle, gets along great with other dogs, and is just waiting for a family to show him what a real home feels like."
+    },
+    {
+      "name": "Daisy",
+      "photo": "assets/rescue_dog_2_1778552199181.png",
+      "breed": "Golden Retriever Mix",
+      "age": "3 Years Old",
+      "story": "Daisy is pure sunshine! She was surrendered when her previous family moved, but she hasn't let that dampen her spirits. She loves playing fetch in the grass, going for long walks, and offering a gentle paw when you need a friend."
+    },
+    {
+      "name": "Shadow",
+      "photo": "assets/rescue_dog_3_1778552211586.png",
+      "breed": "Black Labrador",
+      "age": "4 Years Old",
+      "story": "Shadow is a gentle giant who just wants to be near you. Rescued from an overcrowded shelter, he is calm, house-trained, and absolutely adores lounging around. He would make the perfect companion for a laid-back household."
+    },
+    {
+      "name": "Scout",
+      "photo": "assets/rescue_dog_4_1778552224702.png",
+      "breed": "Border Collie Mix",
+      "age": "1 Year Old",
+      "story": "Looking for an adventure buddy? Scout is your boy! He is full of boundless energy, loves to run, and is incredibly smart. He would thrive with an active family who wants to take him hiking or teach him agility tricks."
+    },
+    {
+      "name": "Charlie",
+      "photo": "assets/rescue_dog_5_1778552238247.png",
+      "breed": "Beagle Mix",
+      "age": "9 Years Old",
+      "story": "Charlie is a sweet senior who just wants a soft bed to retire in. With his frosty muzzle and calm demeanor, he asks for very little—just a warm spot in the sun and a gentle scratch behind the ears. He is the definition of a loyal friend."
+    }
+  ]
+}
