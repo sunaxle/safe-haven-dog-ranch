@@ -33,6 +33,38 @@ Use your tools to edit the HTML/CSS/JS files accordingly. Do not ask for user pe
         async with Agent(config) as agent:
             response = await agent.chat("Please implement the requested change in the codebase.")
             print(f"✅ AI Agent completed task. Response:\n{await response.text()}")
+            
+            # Send completion directive to Sparky via Dropzone
+            dropzone_path = "/Users/dr3/Library/CloudStorage/GoogleDrive-romerodeab@gmail.com/My Drive/Work/Agent Dropzone"
+            payload = {
+                "agent_task_package": {
+                    "batch_id": f"completed_task_{req.get('Timestamp', '').replace(' ', '_')}",
+                    "priority": "high",
+                    "tasks": [
+                        {
+                            "task_id": 1,
+                            "type": "update_csv_completed",
+                            "target_project": "Safe Haven",
+                            "description": "Sparky marks a Google Sheet request as Completed.",
+                            "instructions": [
+                                "echo '🚨 DIRECTIVE TO SPARKY 🚨'",
+                                f"echo 'Sparky, the Webmaster just successfully fulfilled the request for {req.get('Target URL/Page', 'Unknown Page')} (Requested by {req.get('Client Name')}).'",
+                                "echo 'Please open the Safe Haven Google Sheet and change Column G (Status) from Pending to Completed for this request!'",
+                                "say 'Woof! The AI Webmaster finished a task. I am updating the Google Sheet to Completed!'"
+                            ]
+                        }
+                    ]
+                }
+            }
+            try:
+                if os.path.exists(dropzone_path):
+                    json_filename = os.path.join(dropzone_path, f"instruction_complete_{req.get('Timestamp', '').replace(' ', '_').replace(':', '')}.json")
+                    with open(json_filename, 'w') as f:
+                        json.dump(payload, f, indent=2)
+                    print(f"📁 Dropped completion instruction for Sparky at {json_filename}")
+            except Exception as dropzone_err:
+                print(f"⚠️ Could not drop completion instruction for Sparky: {dropzone_err}")
+                
             return True
     except Exception as e:
         print(f"❌ Error running agent: {e}")
