@@ -3,12 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Received | Safe Haven Dog Ranch</title>
+  <title>About Us | Safe Haven Dog Ranch</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .mission-highlight {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      border-radius: var(--radius);
+      margin: 4rem auto;
+      max-width: 900px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .mission-highlight h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .mission-highlight p {
+      font-size: 1.5rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
-<body style="display: flex; flex-direction: column; min-height: 100vh;">
-
+<body>
   <!-- Header -->
   <header>
     <div class="container nav-wrapper">
@@ -23,7 +45,7 @@
           <li><a href="emojidog.html">Emoji Dog</a></li>
           <li><a href="volunteer.html">Volunteer / Foster</a></li>
           <li><a href="special-needs.html">Special Needs</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html" style="color: var(--primary-color);">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
@@ -33,19 +55,21 @@
     </div>
   </header>
 
-  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center;">
-    <div style="background: var(--bg-white); padding: 4rem; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 600px;">
-        <h1 style="color: var(--primary-color); margin-bottom: 1rem;">Application Received!</h1>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Thank you so much for your interest in adopting from Safe Haven Dog Ranch. We have received your application and will be in touch with you shortly!</p>
-        <a href="adopt.html" class="btn btn-primary">Back to the Dogs</a>
+  <main class="fade-in">
+    <div class="container">
+      <div class="mission-highlight">
+        <h1>Our Mission</h1>
+        <p>At Safe Haven Dog Ranch, we are driven by a dual purpose: providing sanctuary, medical care, and a second chance at a first-class life for dogs in need, while simultaneously empowering special needs young adults through connection, real-world skill-building, and purpose-driven work at the ranch.</p>
+      </div>
     </div>
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer class="fade-in">
     <div class="container">
-      <div class="footer-bottom" style="text-align: center; padding: 2rem 0;">
+      <div class="footer-bottom">
         <p>&copy; 2026 Safe Haven Dog Ranch. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-muted);">Paws-itively dedicated to making a difference!</p>
       </div>
     </div>
   </footer>

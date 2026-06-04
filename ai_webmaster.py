@@ -10,7 +10,7 @@ from google.antigravity import Agent, LocalAgentConfig
 
 load_dotenv()
 
-CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDOfWTT2RBDmwXpcbV53fwCcnXR_RC-CEssZPHGyjwnZyA56SwGTIRilKJPi56ZZ_YuGnpazQN55-K/pub?output=csv"
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-zpOLIq_Gy5Wz_VZtzA2jpUgjiOD3VCDK9GSTesaLqO2BnFJncz_GLk-9cEkJdf-uYStpfPGUuQ51/pub?output=csv"
 PROCESSED_FILE = "processed_requests.json"
 
 async def process_request(req):
