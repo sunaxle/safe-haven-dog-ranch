@@ -3,6 +3,8 @@ import csv
 import json
 import requests
 import asyncio
+import subprocess
+import urllib.parse
 from dotenv import load_dotenv
 from google.antigravity import Agent, LocalAgentConfig
 
@@ -34,6 +36,11 @@ Use your tools to edit the HTML/CSS/JS files accordingly. Do not ask for user pe
             return True
     except Exception as e:
         print(f"❌ Error running agent: {e}")
+        print("Generating Webmaster Push Request email...")
+        subject = f"Webmaster Push Request: {req['Client Name']} ({req.get('Target URL/Page', 'General')})"
+        body = f"The AI Webmaster encountered an error or a request too complex to fulfill.\n\nClient: {req['Client Name']}\nContact: {req.get('Contact Email', 'N/A')}\nTarget URL: {req.get('Target URL/Page', 'N/A')}\nChange Requested: {req.get('Change Requested', 'N/A')}\n\nError details: {e}\n\nPlease manually execute this request in the Antigravity codebase."
+        mailto_url = f"mailto:romerodeab@gmail.com?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+        subprocess.run(['open', mailto_url])
         return False
 
 async def main():
