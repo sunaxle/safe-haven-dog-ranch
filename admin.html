@@ -22,7 +22,28 @@
   </style>
 </head>
 <body>
-  <div class="dashboard">
+  <div id="login-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary-color); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <div style="background: white; padding: 3rem; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">Secure Admin Access</h2>
+      <input type="password" id="admin-pass" placeholder="Enter Password" style="padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 1rem;">
+      <br>
+      <button onclick="checkPass()" class="btn btn-secondary" style="width: 100%; cursor: pointer;">Login</button>
+      <p id="error-msg" style="color: red; margin-top: 1rem; display: none;">Incorrect Password.</p>
+    </div>
+  </div>
+
+  <script>
+    function checkPass() {
+      if (document.getElementById('admin-pass').value === 'S@feH@ven@2026') {
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('app-dashboard').style.display = 'grid';
+      } else {
+        document.getElementById('error-msg').style.display = 'block';
+      }
+    }
+  </script>
+
+  <div class="dashboard" id="app-dashboard" style="display: none;">
     <div class="sidebar">
       <h2>Admin Panel</h2>
       <ul style="list-style: none; padding: 0; margin-top: 2rem;">
