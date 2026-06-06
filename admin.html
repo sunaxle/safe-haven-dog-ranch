@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Safe Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #fdf6e3; font-family: 'Outfit', sans-serif; }
+    .dashboard { max-width: 1200px; margin: 4rem auto; display: grid; grid-template-columns: 250px 1fr; gap: 2rem; }
+    .sidebar { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+    .content-area { background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 1rem; border-bottom: 1px solid #eee; text-align: left; }
+    th { color: var(--primary-color); }
+    .btn-sm { cursor: pointer; background: var(--secondary-color); color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; }
+    .btn-sm.hidden { background: #999; }
+    .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+    .badge.adopt { background: #e0f2fe; color: #0284c7; }
+    .badge.foster { background: #dcfce7; color: #166534; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+        <li style="margin-bottom: 1.5rem;"><a href="#" style="text-decoration: none; color: var(--primary-color); font-weight: bold;">📥 Applications</a></li>
+        <li style="margin-bottom: 1.5rem;"><a href="#" style="text-decoration: none; color: #333;">🐾 Manage Dogs</a></li>
+        <li style="margin-bottom: 1.5rem;"><a href="#" style="text-decoration: none; color: #333;">💰 Donations</a></li>
+        <li><a href="index.html" style="text-decoration: none; color: red;">Logout</a></li>
+      </ul>
+    </div>
+    
+    <div class="content-area">
+      <h2 style="color: #333; margin-bottom: 1rem;">Submitted Applications</h2>
+      <table>
+        <tr><th>Applicant Name</th><th>Type</th><th>Dog Requested</th><th>Date</th><th>Action</th></tr>
+        <tr>
+          <td>Jane Smith</td>
+          <td><span class="badge adopt">Adopt</span></td>
+          <td>Buster</td>
+          <td>Today</td>
+          <td><button class="btn-sm">View Details</button></td>
+        </tr>
+        <tr>
+          <td>Mark Johnson</td>
+          <td><span class="badge foster">Foster</span></td>
+          <td>Luna</td>
+          <td>Yesterday</td>
+          <td><button class="btn-sm">View Details</button></td>
+        </tr>
+      </table>
+
+      <h2 style="color: #333; margin-top: 4rem; margin-bottom: 1rem;">Manage Dogs (Public Visibility)</h2>
+      <p style="color: #666; margin-bottom: 1rem;">Use the toggle to hide dogs that have already been fostered or adopted from the main website.</p>
+      <table>
+        <tr><th>Dog Name</th><th>Current Status</th><th>Action</th></tr>
+        <tr>
+          <td>Buster</td>
+          <td><span style="color: green; font-weight: bold;">Visible (Available)</span></td>
+          <td><button class="btn-sm">Hide Dog</button></td>
+        </tr>
+        <tr>
+          <td>Luna</td>
+          <td><span style="color: red; font-weight: bold;">Hidden (Fostered)</span></td>
+          <td><button class="btn-sm hidden">Unhide Dog</button></td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 4rem; padding: 1rem; background: #fee2e2; border-radius: 10px; color: #991b1b;">
+        <strong>Developer Note:</strong> This UI is currently static. The volunteer web developer must initialize Firebase Firestore and Auth to bind this dashboard to the live database.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
