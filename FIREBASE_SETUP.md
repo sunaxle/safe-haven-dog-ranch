@@ -7,7 +7,7 @@ To wire everything up, follow these steps:
 ## 1. Create the Firebase Project
 1. Go to [console.firebase.google.com](https://console.firebase.google.com/).
 2. Click **Create Project** and name it "Safe Haven".
-3. Enable **Firestore Database** and **Authentication** (Email/Password).
+3. Enable **Firestore Database**, **Authentication** (Email/Password), and **Firebase Storage** (this is required for uploading dog photos).
 4. Register a "Web App" to get your Firebase config block.
 
 ## 2. Initialize Firebase Locally
