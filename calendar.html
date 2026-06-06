@@ -3,36 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate & Support | Safe Haven Dog Ranch</title>
+  <title>Volunteer Calendar | Safe Haven Dog Ranch</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .donate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .donate-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .donate-card:hover {
-      transform: translateY(-5px);
-    }
-    .donate-card h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .donate-card p { color: #666; margin-bottom: 2rem; }
-    .btn-amazon { background-color: #ff9900; color: #111; }
-    .btn-cashapp { background-color: #00D632; color: white; }
-    .btn-zelle { background-color: #7413dc; color: white; }
-    .btn-stripe { background-color: #635bff; color: white; }
-  </style>
 </head>
 <body>
   <header>
@@ -43,7 +16,7 @@
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="success-stories.html">Success Stories</a></li>
           <li><a href="volunteer.html">Volunteer / Foster</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="calendar.html" style="color: var(--primary-color);">Calendar</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="sponsorships.html">Sponsorships</a></li>
@@ -52,39 +25,19 @@
     </nav>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 40vh;">
+  <section class="hero" style="background: var(--light-bg); min-height: 30vh; color: var(--text-color);">
     <div class="hero-content">
-      <h1 style="color: white; font-size: 3.5rem;">Support the Pups!</h1>
-      <p style="color: white; font-size: 1.2rem;">We rely 100% on donations to rescue, rehabilitate, and rehome our dogs. Choose your preferred way to give below.</p>
+      <h1 style="color: var(--primary-color);">Volunteer Schedule</h1>
+      <p>Sign up for available shifts or upcoming volunteer training sessions below.</p>
     </div>
   </section>
 
-  <div class="donate-grid">
-    <div class="donate-card">
-      <h2>Amazon Wishlist</h2>
-      <p>Send food, toys, and medical supplies directly to our ranch doors!</p>
-      <a href="#" class="btn btn-amazon">Shop Wishlist</a>
-    </div>
-    
-    <div class="donate-card">
-      <h2>Debit / Credit Card</h2>
-      <p>Make a secure, one-time or recurring donation via Stripe.</p>
-      <a href="#" class="btn btn-stripe">Donate Securely</a>
-    </div>
-
-    <div class="donate-card">
-      <h2>Cash App</h2>
-      <p>Send funds instantly with zero fees using our Cashtag.</p>
-      <h3 style="margin-bottom: 1rem;">$SafeHavenRescue</h3>
-      <a href="#" class="btn btn-cashapp">Open Cash App</a>
-    </div>
-
-    <div class="donate-card">
-      <h2>Zelle</h2>
-      <p>Direct bank transfer straight to our non-profit account.</p>
-      <h3 style="margin-bottom: 1rem;">donate@safehavendogranch.com</h3>
-      <a href="#" class="btn btn-zelle">Open Zelle</a>
-    </div>
+  <div style="max-width: 1000px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <!-- Calendly inline widget begin -->
+    <div class="calendly-inline-widget" data-url="https://calendly.com/safehaven-placeholder" style="min-width:320px;height:700px;"></div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <!-- Calendly inline widget end -->
+    <p style="text-align: center; color: #666; margin-top: 1rem;">*Note: This is a placeholder calendar until the official Calendly account is linked.</p>
   </div>
 
   <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">

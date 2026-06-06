@@ -3,35 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate & Support | Safe Haven Dog Ranch</title>
+  <title>Meet the Dog | Safe Haven Dog Ranch</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .donate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+    .profile-container { max-width: 1200px; margin: 4rem auto; padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .media-gallery img { width: 100%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+    .media-gallery video { width: 100%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .bio-content h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+    .bio-content .breed-info { font-size: 1.2rem; color: #666; margin-bottom: 2rem; font-weight: bold; }
+    .bio-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; }
+    .action-buttons { margin-top: 3rem; display: flex; gap: 1rem; }
+    @media (max-width: 768px) {
+      .profile-container { grid-template-columns: 1fr; }
     }
-    .donate-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .donate-card:hover {
-      transform: translateY(-5px);
-    }
-    .donate-card h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .donate-card p { color: #666; margin-bottom: 2rem; }
-    .btn-amazon { background-color: #ff9900; color: #111; }
-    .btn-cashapp { background-color: #00D632; color: white; }
-    .btn-zelle { background-color: #7413dc; color: white; }
-    .btn-stripe { background-color: #635bff; color: white; }
   </style>
 </head>
 <body>
@@ -52,42 +37,34 @@
     </nav>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 40vh;">
-    <div class="hero-content">
-      <h1 style="color: white; font-size: 3.5rem;">Support the Pups!</h1>
-      <p style="color: white; font-size: 1.2rem;">We rely 100% on donations to rescue, rehabilitate, and rehome our dogs. Choose your preferred way to give below.</p>
-    </div>
-  </section>
-
-  <div class="donate-grid">
-    <div class="donate-card">
-      <h2>Amazon Wishlist</h2>
-      <p>Send food, toys, and medical supplies directly to our ranch doors!</p>
-      <a href="#" class="btn btn-amazon">Shop Wishlist</a>
-    </div>
-    
-    <div class="donate-card">
-      <h2>Debit / Credit Card</h2>
-      <p>Make a secure, one-time or recurring donation via Stripe.</p>
-      <a href="#" class="btn btn-stripe">Donate Securely</a>
+  <div class="profile-container">
+    <!-- This media section will be dynamically populated by Firebase -->
+    <div class="media-gallery">
+      <img src="hero_rescue_dog_1778545401749.png" alt="Featured Dog">
+      <!-- Placeholder for video -->
+      <div style="background: #eee; padding: 4rem; text-align: center; border-radius: 15px; color: #999;">
+        [Video Player Placeholder]
+      </div>
     </div>
 
-    <div class="donate-card">
-      <h2>Cash App</h2>
-      <p>Send funds instantly with zero fees using our Cashtag.</p>
-      <h3 style="margin-bottom: 1rem;">$SafeHavenRescue</h3>
-      <a href="#" class="btn btn-cashapp">Open Cash App</a>
-    </div>
-
-    <div class="donate-card">
-      <h2>Zelle</h2>
-      <p>Direct bank transfer straight to our non-profit account.</p>
-      <h3 style="margin-bottom: 1rem;">donate@safehavendogranch.com</h3>
-      <a href="#" class="btn btn-zelle">Open Zelle</a>
+    <div class="bio-content">
+      <!-- This text section will be dynamically populated by Firebase -->
+      <h1>Buster</h1>
+      <div class="breed-info">Golden Retriever Mix • 2 Years Old • Male</div>
+      
+      <h3>Meet Buster</h3>
+      <p>Buster is the sweetest boy you will ever meet! He was found wandering the streets but has quickly warmed up to the ranch life. He loves playing fetch, cuddling on the couch, and is extremely treat motivated.</p>
+      
+      <h3>Medical & Behavioral Info</h3>
+      <p>Fully vaccinated, neutered, and microchipped. Buster gets along great with other dogs and kids, but has not been tested around cats.</p>
+      
+      <div class="action-buttons">
+        <a href="application.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">Adopt Buster</a>
+        <a href="application.html" class="btn" style="font-size: 1.2rem; padding: 15px 30px; background: #eee; color: #333;">Foster Buster</a>
+      </div>
     </div>
   </div>
-
-  <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
+<footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
       
       <div>

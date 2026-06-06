@@ -3,35 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate & Support | Safe Haven Dog Ranch</title>
+  <title>Sponsorships | Safe Haven Dog Ranch</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .donate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .donate-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .donate-card:hover {
-      transform: translateY(-5px);
-    }
-    .donate-card h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .donate-card p { color: #666; margin-bottom: 2rem; }
-    .btn-amazon { background-color: #ff9900; color: #111; }
-    .btn-cashapp { background-color: #00D632; color: white; }
-    .btn-zelle { background-color: #7413dc; color: white; }
-    .btn-stripe { background-color: #635bff; color: white; }
+    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .tier-card { background: white; border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--secondary-color); }
+    .tier-card.premium { border-top: 5px solid var(--primary-color); transform: scale(1.05); }
+    .price { font-size: 3rem; font-weight: 700; color: var(--primary-color); margin: 1rem 0; }
   </style>
 </head>
 <body>
@@ -46,48 +25,46 @@
           <li><a href="calendar.html">Calendar</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="sponsorships.html">Sponsorships</a></li>
+          <li><a href="sponsorships.html" style="color: var(--primary-color);">Sponsorships</a></li>
           <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
         </ul>
     </nav>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 40vh;">
+  <section class="hero" style="background: #2b2b2b; color: white;">
     <div class="hero-content">
-      <h1 style="color: white; font-size: 3.5rem;">Support the Pups!</h1>
-      <p style="color: white; font-size: 1.2rem;">We rely 100% on donations to rescue, rehabilitate, and rehome our dogs. Choose your preferred way to give below.</p>
+      <h1>Leave a Lasting Legacy</h1>
+      <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Sponsor a project, engrave a paver stone, or place your business logo on our fences. Your legacy builds our future.</p>
     </div>
   </section>
 
-  <div class="donate-grid">
-    <div class="donate-card">
-      <h2>Amazon Wishlist</h2>
-      <p>Send food, toys, and medical supplies directly to our ranch doors!</p>
-      <a href="#" class="btn btn-amazon">Shop Wishlist</a>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <h2>Engraved Paver Stone</h2>
+      <div class="price">$250</div>
+      <p>Immortalize your family, business, or a beloved pet on a brick paver located in our memorial walkway.</p>
+      <a href="contact.html" class="btn">Inquire Now</a>
     </div>
     
-    <div class="donate-card">
-      <h2>Debit / Credit Card</h2>
-      <p>Make a secure, one-time or recurring donation via Stripe.</p>
-      <a href="#" class="btn btn-stripe">Donate Securely</a>
+    <div class="tier-card premium">
+      <h2>Fence Logo Banner</h2>
+      <div class="price">$1,000</div>
+      <p>Perfect for local businesses! Get a 4x8 ft banner with your logo hung on our prominent perimeter fencing for one full year.</p>
+      <a href="contact.html" class="btn btn-primary">Sponsor a Fence</a>
     </div>
 
-    <div class="donate-card">
-      <h2>Cash App</h2>
-      <p>Send funds instantly with zero fees using our Cashtag.</p>
-      <h3 style="margin-bottom: 1rem;">$SafeHavenRescue</h3>
-      <a href="#" class="btn btn-cashapp">Open Cash App</a>
-    </div>
-
-    <div class="donate-card">
-      <h2>Zelle</h2>
-      <p>Direct bank transfer straight to our non-profit account.</p>
-      <h3 style="margin-bottom: 1rem;">donate@safehavendogranch.com</h3>
-      <a href="#" class="btn btn-zelle">Open Zelle</a>
+    <div class="tier-card">
+      <h2>Kennel Sponsor</h2>
+      <div class="price">$500/mo</div>
+      <p>Sponsor an entire kennel. We will place a plaque with your name on the door and send you updates on every dog that passes through it.</p>
+      <a href="contact.html" class="btn">Inquire Now</a>
     </div>
   </div>
-
-  <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
+  
+  <div style="text-align: center; padding: 2rem;">
+    <a href="sponsors.html" class="btn btn-accent">View Our Wall of Fame</a>
+  </div>
+<footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
       
       <div>

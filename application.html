@@ -3,35 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate & Support | Safe Haven Dog Ranch</title>
+  <title>Adoption Application | Safe Haven Dog Ranch</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .donate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .donate-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .donate-card:hover {
-      transform: translateY(-5px);
-    }
-    .donate-card h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .donate-card p { color: #666; margin-bottom: 2rem; }
-    .btn-amazon { background-color: #ff9900; color: #111; }
-    .btn-cashapp { background-color: #00D632; color: white; }
-    .btn-zelle { background-color: #7413dc; color: white; }
-    .btn-stripe { background-color: #635bff; color: white; }
+    .form-container { max-width: 800px; margin: 4rem auto; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .form-group { margin-bottom: 1.5rem; text-align: left; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 0.5rem; color: #333; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); }
   </style>
 </head>
 <body>
@@ -52,42 +32,49 @@
     </nav>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 40vh;">
-    <div class="hero-content">
-      <h1 style="color: white; font-size: 3.5rem;">Support the Pups!</h1>
-      <p style="color: white; font-size: 1.2rem;">We rely 100% on donations to rescue, rehabilitate, and rehome our dogs. Choose your preferred way to give below.</p>
-    </div>
-  </section>
-
-  <div class="donate-grid">
-    <div class="donate-card">
-      <h2>Amazon Wishlist</h2>
-      <p>Send food, toys, and medical supplies directly to our ranch doors!</p>
-      <a href="#" class="btn btn-amazon">Shop Wishlist</a>
-    </div>
+  <div class="form-container">
+    <h1 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">Application to Adopt or Foster</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 3rem;">Please fill out the form below completely. Our team will review your application and get back to you within 48 hours.</p>
     
-    <div class="donate-card">
-      <h2>Debit / Credit Card</h2>
-      <p>Make a secure, one-time or recurring donation via Stripe.</p>
-      <a href="#" class="btn btn-stripe">Donate Securely</a>
-    </div>
+    <form action="#" method="POST" id="adoptionForm">
+      <div class="form-group">
+        <label>Application Type</label>
+        <select required>
+          <option value="adopt">I want to Adopt a dog</option>
+          <option value="foster">I want to Foster a dog</option>
+          <option value="foster-to-adopt">I want to Foster-to-Adopt</option>
+        </select>
+      </div>
 
-    <div class="donate-card">
-      <h2>Cash App</h2>
-      <p>Send funds instantly with zero fees using our Cashtag.</p>
-      <h3 style="margin-bottom: 1rem;">$SafeHavenRescue</h3>
-      <a href="#" class="btn btn-cashapp">Open Cash App</a>
-    </div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="John Doe" required>
+      </div>
 
-    <div class="donate-card">
-      <h2>Zelle</h2>
-      <p>Direct bank transfer straight to our non-profit account.</p>
-      <h3 style="margin-bottom: 1rem;">donate@safehavendogranch.com</h3>
-      <a href="#" class="btn btn-zelle">Open Zelle</a>
-    </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="(555) 555-5555" required>
+      </div>
+
+      <div class="form-group">
+        <label>Which dog are you applying for? (Leave blank if unsure)</label>
+        <input type="text" placeholder="Dog's Name">
+      </div>
+
+      <div class="form-group">
+        <label>Describe your living situation and previous pet experience</label>
+        <textarea rows="5" placeholder="I live in a house with a fenced yard..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2rem;">Submit Application</button>
+    </form>
   </div>
-
-  <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
+<footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
       
       <div>
