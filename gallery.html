@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery | Safe Haven Dog Ranch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-header {
+      background-color: var(--secondary-color);
+      color: var(--text-light);
+      padding: 4rem 0;
+      text-align: center;
+    }
+    .page-header h1 {
+      color: var(--text-light);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Masonry Gallery Grid */
+    .gallery-container {
+      padding: 4rem 0;
+    }
+    .masonry-grid {
+      column-count: 3;
+      column-gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .masonry-grid {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 600px) {
+      .masonry-grid {
+        column-count: 1;
+      }
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(43, 75, 111, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-overlay i {
+      color: white;
+      font-size: 2rem;
+      font-style: normal;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .lightbox-close:hover {
+      color: var(--primary-color);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Adopt</a></li>
+          <li><a href="success-stories.html">Success Stories</a></li>
+          <li><a href="gallery.html" style="color: var(--primary-color);">Gallery</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="special-needs.html">Special Needs</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 class="fade-in">Life at the Ranch</h1>
+      <p class="fade-in">A glimpse into the daily joy, rescue operations, and beautiful moments at Safe Haven Dog Ranch.</p>
+    </div>
+  </section>
+
+  <main class="gallery-container container fade-in">
+    <div class="masonry-grid">
+      <!-- Photos -->
+      <div class="gallery-item">
+        <img src="assets/hero_rescue_dog_1778545401749.png" alt="Ranch Dog">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/rescue_dog_1_1778552185105.png" alt="Rescue Dog 1">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/rescue_dog_2_1778552199181.png" alt="Rescue Dog 2">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/84bd641a-650c-4265-92bb-e2d0d7c34d77.JPG" alt="Happy Dog">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/rescue_dog_3_1778552211586.png" alt="Rescue Dog 3">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/rescue_dog_4_1778552224702.png" alt="Rescue Dog 4">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/rescue_dog_5_1778552238247.png" alt="Rescue Dog 5">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/IMG_3066.jpeg" alt="Dog at play">
+        <div class="gallery-overlay"><i>+</i></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Expanded View">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Safe Haven Dog Ranch</h3>
+          <p>Weslaco, TX</p>
+          <p>Email: admin@safehavendogranch.com</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Adopt</a></li>
+            <li><a href="success-stories.html">Success Stories</a></li>
+            <li><a href="special-needs.html">Special Needs Program</a></li>
+            <li><a href="shop.html">Merchandise Shop</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Trust & Transparency</h3>
+          <p>Safe Haven Dog Ranch is a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Safe Haven Dog Ranch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Lightbox Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const imgSrc = item.querySelector('img').src;
+          lightboxImg.src = imgSrc;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+      });
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      };
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if(e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') {
+          closeLightbox();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
