@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog & Rocket Emoji Test Playground | Safe Haven Dog Ranch</title>
+  <meta name="description" content="An interactive, animated playground showing dog and rocket emojis with custom animations and effects, built for Safe Haven Dog Ranch.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --gradient-bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      --accent-yellow: #ffb703;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-emoji {
+      background: var(--gradient-bg);
+      color: var(--text-light);
+      padding: 6rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 10px 30px rgba(43, 75, 111, 0.15);
+    }
+
+    .hero-emoji::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-emoji h1 {
+      color: var(--text-light);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+
+    .interactive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin: 4rem 0;
+    }
+
+    .emoji-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .emoji-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .big-emoji-display {
+      font-size: 6rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .big-emoji-display:hover {
+      transform: scale(1.15) rotate(5deg);
+    }
+
+    .big-emoji-display.active-bark {
+      animation: wobble-animation 0.5s ease;
+    }
+
+    .big-emoji-display.active-launch {
+      animation: launch-animation 0.8s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+    }
+
+    @keyframes wobble-animation {
+      0% { transform: scale(1) rotate(0); }
+      15% { transform: scale(1.1) rotate(-15deg); }
+      30% { transform: scale(1.1) rotate(10deg); }
+      45% { transform: scale(1.1) rotate(-10deg); }
+      60% { transform: scale(1.1) rotate(5deg); }
+      75% { transform: scale(1.1) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    @keyframes launch-animation {
+      0% { transform: translateY(0) scale(1) rotate(0); opacity: 1; }
+      30% { transform: translateY(10px) scale(0.9) rotate(-3deg); opacity: 1; }
+      100% { transform: translateY(-500px) scale(0.6) rotate(15deg); opacity: 0; }
+    }
+
+    .counter-badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .dog-badge {
+      background-color: rgba(247, 160, 65, 0.15);
+      color: var(--primary-color);
+    }
+
+    .rocket-badge {
+      background-color: rgba(43, 75, 111, 0.1);
+      color: var(--secondary-color);
+    }
+
+    .btn-action {
+      width: 100%;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 2rem;
+      z-index: 100;
+      animation: float-up 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes float-up {
+      0% {
+        transform: translateY(0) scale(0.5) rotate(0);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5) rotate(var(--rot, 360deg));
+        opacity: 0;
+      }
+    }
+
+    .panel-controls {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .emoji-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .gallery-item {
+      font-size: 2rem;
+      padding: 0.8rem;
+      background: var(--bg-light);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.2);
+      background-color: rgba(247, 160, 65, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating particles target container -->
+  <div id="particles" class="particles-container"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo" id="logo-link">
+          <span>🐾</span> Safe Haven Dog Ranch
+        </a>
+        <ul class="nav-links" id="navigation-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="adopt.html">Adopt</a></li>
+          <li><a href="donate.html">Donate</a></li>
+          <li><a href="emoji-test.html" style="color: var(--primary-color); font-weight: 700;">Emoji Test</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-emoji" id="hero-section">
+    <div class="container">
+      <h1 id="page-main-title">Dog & Rocket Playground 🐶🚀</h1>
+      <p class="hero-subtitle">Experience interactive micro-animations and physics-based floating particles. Click the cards or buttons to trigger the effects!</p>
+    </div>
+  </section>
+
+  <!-- Main Playground Content -->
+  <main class="container" id="main-content">
+    <div class="interactive-grid">
+      
+      <!-- Dog Card -->
+      <section class="emoji-card" id="dog-card">
+        <span class="counter-badge dog-badge" id="dog-counter-badge">Barks Triggered: <span id="dog-count">0</span></span>
+        <div>
+          <span class="big-emoji-display" id="dog-emoji" role="img" aria-label="Dog">🐕</span>
+        </div>
+        <h3>Playful Puppies</h3>
+        <p>Dogs bring absolute joy, loyalty, and playfulness to our lives. Click the dog above to hear them "bark" visually!</p>
+        <button class="btn btn-primary btn-action" id="bark-btn">Trigger Dog Bark Effect 🐾</button>
+      </section>
+
+      <!-- Rocket Card -->
+      <section class="emoji-card" id="rocket-card">
+        <span class="counter-badge rocket-badge" id="rocket-counter-badge">Launches Triggered: <span id="rocket-count">0</span></span>
+        <div>
+          <span class="big-emoji-display" id="rocket-emoji" role="img" aria-label="Rocket">🚀</span>
+        </div>
+        <h3>Rocket Blast-Off</h3>
+        <p>Propelling our rescue dogs into bright, happy futures! Click the rocket above to send it soaring into the atmosphere.</p>
+        <button class="btn btn-accent btn-action" id="launch-btn">Launch Rocket 🚀</button>
+      </section>
+
+    </div>
+
+    <!-- Interactive Panel -->
+    <section class="panel-controls" id="control-panel">
+      <h2>Interactive Emoji Generator</h2>
+      <p>Select any emoji below to spawn a massive burst of floating elements across the screen!</p>
+      
+      <div class="emoji-gallery" id="emoji-selector">
+        <span class="gallery-item" data-emoji="🐶">🐶</span>
+        <span class="gallery-item" data-emoji="🚀">🚀</span>
+        <span class="gallery-item" data-emoji="🐕">🐕</span>
+        <span class="gallery-item" data-emoji="🌌">🌌</span>
+        <span class="gallery-item" data-emoji="🦮">🦮</span>
+        <span class="gallery-item" data-emoji="☄️">☄️</span>
+        <span class="gallery-item" data-emoji="🐩">🐩</span>
+        <span class="gallery-item" data-emoji="🛰️">🛰️</span>
+      </div>
+
+      <button class="btn btn-primary" id="burst-all-btn" style="margin-top: 2rem; background: var(--gradient-bg);">
+        Trigger Combined Dog & Rocket Burst! 🐶🚀💥
+      </button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Safe Haven Dog Ranch</h3>
+          <p>Providing safe havens and loving forever homes for dogs in need.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="adopt.html">Adopt a Dog</a></li>
+            <li><a href="donate.html">Donate</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Safe Haven Dog Ranch. Designed dynamically for high performance.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script for interactivity -->
+  <script>
+    // Elements
+    const dogEmoji = document.getElementById('dog-emoji');
+    const rocketEmoji = document.getElementById('rocket-emoji');
+    const barkBtn = document.getElementById('bark-btn');
+    const launchBtn = document.getElementById('launch-btn');
+    const dogCountEl = document.getElementById('dog-count');
+    const rocketCountEl = document.getElementById('rocket-count');
+    const particlesContainer = document.getElementById('particles');
+    const emojiSelector = document.getElementById('emoji-selector');
+    const burstAllBtn = document.getElementById('burst-all-btn');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navigationMenu = document.getElementById('navigation-menu');
+
+    // State
+    let barksCount = 0;
+    let launchesCount = 0;
+
+    // Mobile menu toggle
+    mobileMenuToggle.addEventListener('click', () => {
+      navigationMenu.classList.toggle('active');
+    });
+
+    // Helper to spawn single floating particle
+    function spawnParticle(emoji, x, y) {
+      const particle = document.createElement('span');
+      particle.className = 'particle';
+      particle.textContent = emoji;
+      
+      // Randomize positioning around target
+      const offsetRange = 30;
+      const rx = x + (Math.random() - 0.5) * offsetRange;
+      const ry = y + (Math.random() - 0.5) * offsetRange;
+      
+      particle.style.left = `${rx}px`;
+      particle.style.top = `${ry}px`;
+      
+      // Custom animation variables
+      const rotation = `${(Math.random() - 0.5) * 720}deg`;
+      particle.style.setProperty('--rot', rotation);
+      
+      particlesContainer.appendChild(particle);
+      
+      // Cleanup particle after animation ends
+      setTimeout(() => {
+        particle.remove();
+      }, 2000);
+    }
+
+    // Spawn a burst of emojis
+    function spawnBurst(emoji, count, element) {
+      const rect = element.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+      const x = rect.left + rect.width / 2 + scrollX;
+      const y = rect.top + rect.height / 2 + scrollY;
+      
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          spawnParticle(emoji, x, y);
+        }, i * 50);
+      }
+    }
+
+    // Dog Bark Interactivity
+    function triggerBark() {
+      barksCount++;
+      dogCountEl.textContent = barksCount;
+      
+      // Animate card emoji
+      dogEmoji.classList.remove('active-bark');
+      void dogEmoji.offsetWidth; // Trigger reflow to restart animation
+      dogEmoji.classList.add('active-bark');
+      
+      // Spawn floating barks & dog heads
+      const barks = ['🐶', '🐾', 'Bark!', 'Woof!'];
+      const rect = dogEmoji.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+      const x = rect.left + rect.width / 2 + scrollX;
+      const y = rect.top + rect.height / 2 + scrollY;
+      
+      for (let i = 0; i < 6; i++) {
+        const randomEmoji = barks[Math.floor(Math.random() * barks.length)];
+        spawnParticle(randomEmoji, x, y);
+      }
+    }
+
+    dogEmoji.addEventListener('click', triggerBark);
+    barkBtn.addEventListener('click', triggerBark);
+
+    // Rocket Launch Interactivity
+    function triggerLaunch() {
+      launchesCount++;
+      rocketCountEl.textContent = launchesCount;
+      
+      // Clone the emoji element for launch animation so it doesn't break layout
+      const rect = rocketEmoji.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+      const x = rect.left + rect.width / 2 + scrollX - 30; // offset half width
+      const y = rect.top + rect.height / 2 + scrollY - 30;
+      
+      // Spawn exhaust particles
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          spawnParticle('🔥', x + 30, y + 50);
+        }, i * 40);
+      }
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          spawnParticle('💨', x + 30, y + 50);
+        }, i * 70);
+      }
+
+      // Temporarily hide the main rocket and launch a visual copy
+      rocketEmoji.style.visibility = 'hidden';
+      
+      const flyingRocket = document.createElement('span');
+      flyingRocket.className = 'big-emoji-display active-launch';
+      flyingRocket.textContent = '🚀';
+      flyingRocket.style.position = 'absolute';
+      flyingRocket.style.left = `${rect.left + scrollX}px`;
+      flyingRocket.style.top = `${rect.top + scrollY}px`;
+      flyingRocket.style.zIndex = '1000';
+      document.body.appendChild(flyingRocket);
+
+      // Clean up flying rocket and restore base rocket
+      setTimeout(() => {
+        flyingRocket.remove();
+        rocketEmoji.style.visibility = 'visible';
+        // Spawn small stars upon success
+        spawnBurst('✨', 8, rocketEmoji);
+      }, 800);
+    }
+
+    rocketEmoji.addEventListener('click', triggerLaunch);
+    launchBtn.addEventListener('click', triggerLaunch);
+
+    // Gallery Selector Interactivity
+    emojiSelector.addEventListener('click', (e) => {
+      if (e.target.classList.contains('gallery-item')) {
+        const selectedEmoji = e.target.dataset.emoji;
+        spawnBurst(selectedEmoji, 12, e.target);
+      }
+    });
+
+    // Burst All
+    burstAllBtn.addEventListener('click', (e) => {
+      const emojis = ['🐶', '🚀', '🐕', '☄️', '🐩', '🌌', '🐾', '🔥'];
+      const rect = burstAllBtn.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+      const x = rect.left + rect.width / 2 + scrollX;
+      const y = rect.top + rect.height / 2 + scrollY;
+
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+          spawnParticle(randEmoji, x, y);
+        }, i * 30);
+      }
+    });
+  </script>
+</body>
+</html>
