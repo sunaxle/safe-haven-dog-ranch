@@ -36,10 +36,10 @@
     <h1 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">Application to Adopt or Foster</h1>
     <p style="text-align: center; color: #666; margin-bottom: 3rem;">Please fill out the form below completely. Our team will review your application and get back to you within 48 hours.</p>
     
-    <form action="#" method="POST" id="adoptionForm">
+    <form id="adoptionForm">
       <div class="form-group">
         <label>Application Type</label>
-        <select required>
+        <select id="appType" required>
           <option value="adopt">I want to Adopt a dog</option>
           <option value="foster">I want to Foster a dog</option>
           <option value="foster-to-adopt">I want to Foster-to-Adopt</option>
@@ -48,31 +48,117 @@
 
       <div class="form-group">
         <label>Full Name</label>
-        <input type="text" placeholder="John Doe" required>
+        <input type="text" id="appName" placeholder="John Doe" required>
       </div>
 
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" placeholder="john@example.com" required>
+        <input type="email" id="appEmail" placeholder="john@example.com" required>
       </div>
 
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="(555) 555-5555" required>
+        <input type="tel" id="appPhone" placeholder="(555) 555-5555" required>
       </div>
 
       <div class="form-group">
         <label>Which dog are you applying for? (Leave blank if unsure)</label>
-        <input type="text" placeholder="Dog's Name">
+        <input type="text" id="appDog" placeholder="Dog's Name">
+      </div>
+
+      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+      <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Living Situation</h3>
+
+      <div class="form-group">
+        <label>Housing Type</label>
+        <select id="appHousing" required>
+          <option value="own">I own my home</option>
+          <option value="rent">I rent</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <label>Describe your living situation and previous pet experience</label>
-        <textarea rows="5" placeholder="I live in a house with a fenced yard..." required></textarea>
+        <label>If renting, please provide Landlord's Name & Phone Number</label>
+        <input type="text" id="appLandlord" placeholder="Jane Smith, 555-1234">
       </div>
 
-      <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2rem;">Submit Application</button>
+      <div class="form-group">
+        <label>Do you have a fully fenced yard?</label>
+        <select id="appFence" required>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Describe your household (number of adults, and children with their ages)</label>
+        <textarea id="appHousehold" rows="3" placeholder="2 adults, 1 child (age 5)..." required></textarea>
+      </div>
+
+      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+      <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Lifestyle & Pet History</h3>
+
+      <div class="form-group">
+        <label>Current Pets (Please list breed, age, and if they are spayed/neutered)</label>
+        <textarea id="appPets" rows="3" placeholder="None, or 1 cat (spayed, 3 years old)..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Veterinary Reference (Clinic Name & Phone Number)</label>
+        <input type="text" id="appVet" placeholder="Main St Vet, 555-9876" required>
+      </div>
+
+      <div class="form-group">
+        <label>How many hours a day will the dog be left alone?</label>
+        <input type="text" id="appHoursAlone" placeholder="e.g. 4-6 hours" required>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; font-size: 1.2rem; cursor: pointer;">Submit Application</button>
     </form>
+    
+    <div id="successMsg" style="display: none; text-align: center; margin-top: 2rem; padding: 2rem; background: #dcfce7; color: #166534; border-radius: 10px;">
+      <h2>🎉 Application Submitted!</h2>
+      <p>Thank you! Our team will review your application and get back to you soon.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db, collection, addDoc } from './firebase-config.js';
+
+    document.getElementById('adoptionForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Submitting...";
+      submitBtn.disabled = true;
+
+      try {
+        await addDoc(collection(db, "applications"), {
+          type: document.getElementById('appType').value,
+          name: document.getElementById('appName').value,
+          email: document.getElementById('appEmail').value,
+          phone: document.getElementById('appPhone').value,
+          dogRequested: document.getElementById('appDog').value,
+          housing: document.getElementById('appHousing').value,
+          landlordInfo: document.getElementById('appLandlord').value,
+          fencedYard: document.getElementById('appFence').value,
+          household: document.getElementById('appHousehold').value,
+          currentPets: document.getElementById('appPets').value,
+          veterinaryReference: document.getElementById('appVet').value,
+          hoursAlone: document.getElementById('appHoursAlone').value,
+          timestamp: new Date().toISOString(),
+          status: "Pending"
+        });
+
+        document.getElementById('adoptionForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("There was an error submitting your application. Please try again.");
+        submitBtn.innerText = "Submit Application";
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
   </div>
 <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">

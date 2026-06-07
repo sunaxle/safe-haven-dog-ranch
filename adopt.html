@@ -96,40 +96,94 @@
     <!-- Dogs Grid -->
     <div>
       <div class="dog-grid" id="dogs-container">
-        
-        <!-- Example Dog Card (Will be dynamically populated by Firebase) -->
-        <div class="dog-card">
-          <img src="hero_rescue_dog_1778545401749.png" alt="Buster">
-          <div class="info">
-            <h2>Buster</h2>
-            <div class="badge-container">
-              <span class="tag-badge">Large</span>
-              <span class="tag-badge">Adult</span>
-              <span class="tag-badge">Kids ✅</span>
-            </div>
-            <p style="color: #666; margin-bottom: 1.5rem;">Golden Retriever Mix • Sweet and goofy!</p>
-            <a href="dog-profile.html" class="btn btn-primary" style="width: 100%;">View Profile</a>
-          </div>
-        </div>
-
-        <div class="dog-card">
-          <img src="handmade_bracelets_1778545429947.png" alt="Luna">
-          <div class="info">
-            <h2>Luna</h2>
-            <div class="badge-container">
-              <span class="tag-badge">Small</span>
-              <span class="tag-badge">Puppy</span>
-              <span class="tag-badge">Cats ✅</span>
-            </div>
-            <p style="color: #666; margin-bottom: 1.5rem;">Terrier Mix • Energetic and playful!</p>
-            <a href="dog-profile.html" class="btn btn-primary" style="width: 100%;">View Profile</a>
-          </div>
-        </div>
-
+        <p style="grid-column: 1 / -1; text-align: center; color: #666;">Loading available dogs...</p>
       </div>
-      <p style="text-align: center; color: red; margin-top: 3rem;">*Note for Devs: Firebase Firestore queries must be attached to the checkboxes to dynamically filter this grid.</p>
     </div>
   </div>
+
+  <script type="module">
+    import { db, collection, getDocs } from './firebase-config.js';
+
+    let allDogs = [];
+
+    async function loadDogs() {
+      const container = document.getElementById('dogs-container');
+      const querySnapshot = await getDocs(collection(db, "dogs"));
+      
+      allDogs = [];
+      querySnapshot.forEach((doc) => {
+        const dog = doc.data();
+        if (!dog.hidden) {
+          allDogs.push({ id: doc.id, ...dog });
+        }
+      });
+      
+      renderDogs(allDogs);
+    }
+
+    function renderDogs(dogsToRender) {
+      const container = document.getElementById('dogs-container');
+      container.innerHTML = '';
+
+      if (dogsToRender.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 2rem;">No dogs match your exact criteria. Please try adjusting your filters!</p>';
+        return;
+      }
+
+      dogsToRender.forEach(dog => {
+        const badges = [];
+        if(dog.size) badges.push(`<span class="tag-badge">${dog.size.charAt(0).toUpperCase() + dog.size.slice(1)}</span>`);
+        if(dog.age) badges.push(`<span class="tag-badge">${dog.age.charAt(0).toUpperCase() + dog.age.slice(1)}</span>`);
+        if(dog.goodWithKids) badges.push(`<span class="tag-badge">Kids ✅</span>`);
+        if(dog.goodWithCats) badges.push(`<span class="tag-badge">Cats ✅</span>`);
+        if(dog.goodWithDogs) badges.push(`<span class="tag-badge">Dogs ✅</span>`);
+
+        const card = document.createElement('div');
+        card.className = 'dog-card';
+        card.innerHTML = `
+          <img src="${dog.photoURL || 'placeholder.jpg'}" alt="${dog.name}">
+          <div class="info">
+            <h2>${dog.name}</h2>
+            <div class="badge-container">
+              ${badges.join('')}
+            </div>
+            <p style="color: #666; margin-bottom: 1.5rem;">${dog.breed}</p>
+            <a href="application.html" class="btn btn-primary" style="width: 100%;">Apply to Adopt</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter Logic
+    function applyFilters() {
+      const checkedSizes = Array.from(document.querySelectorAll('input[value="small"], input[value="medium"], input[value="large"]')).filter(cb => cb.checked).map(cb => cb.value);
+      const checkedAges = Array.from(document.querySelectorAll('input[value="puppy"], input[value="adult"], input[value="senior"]')).filter(cb => cb.checked).map(cb => cb.value);
+      
+      const requiresKids = document.querySelector('input[value="kids"]').checked;
+      const requiresDogs = document.querySelector('input[value="dogs"]').checked;
+      const requiresCats = document.querySelector('input[value="cats"]').checked;
+
+      const filtered = allDogs.filter(dog => {
+        if (checkedSizes.length > 0 && !checkedSizes.includes(dog.size)) return false;
+        if (checkedAges.length > 0 && !checkedAges.includes(dog.age)) return false;
+        if (requiresKids && !dog.goodWithKids) return false;
+        if (requiresDogs && !dog.goodWithDogs) return false;
+        if (requiresCats && !dog.goodWithCats) return false;
+        return true;
+      });
+
+      renderDogs(filtered);
+    }
+
+    // Attach event listeners to all checkboxes
+    document.querySelectorAll('.filter-option input').forEach(checkbox => {
+      checkbox.addEventListener('change', applyFilters);
+    });
+
+    // Initial load
+    loadDogs();
+  </script>
 
   <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">

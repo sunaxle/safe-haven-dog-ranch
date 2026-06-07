@@ -98,29 +98,29 @@
           
           <div>
             <label style="font-weight: bold; color: #333;">Dog Name</label><br>
-            <input type="text" placeholder="e.g. Max" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;">
+            <input type="text" id="dogName" placeholder="e.g. Max" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;" required>
           </div>
 
           <div>
             <label style="font-weight: bold; color: #333;">Breed / Mix</label><br>
-            <input type="text" placeholder="e.g. Golden Retriever Mix" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;">
+            <input type="text" id="dogBreed" placeholder="e.g. Golden Retriever Mix" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;" required>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div>
               <label style="font-weight: bold; color: #333;">Size</label><br>
-              <select style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;">
-                <option>Small (Under 25 lbs)</option>
-                <option>Medium (25-60 lbs)</option>
-                <option>Large (60+ lbs)</option>
+              <select id="dogSize" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;" required>
+                <option value="small">Small (Under 25 lbs)</option>
+                <option value="medium">Medium (25-60 lbs)</option>
+                <option value="large">Large (60+ lbs)</option>
               </select>
             </div>
             <div>
               <label style="font-weight: bold; color: #333;">Age</label><br>
-              <select style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;">
-                <option>Puppy (Under 1 Year)</option>
-                <option>Adult (1-7 Years)</option>
-                <option>Senior (7+ Years)</option>
+              <select id="dogAge" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;" required>
+                <option value="puppy">Puppy (Under 1 Year)</option>
+                <option value="adult">Adult (1-7 Years)</option>
+                <option value="senior">Senior (7+ Years)</option>
               </select>
             </div>
           </div>
@@ -128,41 +128,124 @@
           <div style="margin-top: 0.5rem;">
             <label style="font-weight: bold; color: #333;">Friendly Attributes</label><br>
             <div style="display: flex; gap: 1rem; margin-top: 5px; color: #555;">
-              <label><input type="checkbox"> Good with Kids</label>
-              <label><input type="checkbox"> Good with Cats</label>
-              <label><input type="checkbox"> Good with Dogs</label>
+              <label><input type="checkbox" id="dogKids"> Good with Kids</label>
+              <label><input type="checkbox" id="dogCats"> Good with Cats</label>
+              <label><input type="checkbox" id="dogDogs"> Good with Dogs</label>
             </div>
           </div>
 
           <div style="margin-top: 1rem;">
             <label style="font-weight: bold; color: #333;">Upload Photo</label><br>
-            <input type="file" accept="image/*" style="margin-top: 5px;">
+            <input type="file" id="dogPhoto" accept="image/*" style="margin-top: 5px;" required>
           </div>
 
-          <button type="button" class="btn btn-primary" style="margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem; border: none; cursor: pointer;">Publish Dog Profile</button>
+          <button type="submit" id="addDogBtn" class="btn btn-primary" style="margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem; border: none; cursor: pointer;">Publish Dog Profile</button>
         </form>
       </div>
 
       <h2 style="color: #333; margin-top: 4rem; margin-bottom: 1rem;">🐾 Manage Existing Dogs</h2>
       <p style="color: #666; margin-bottom: 1rem;">Use the toggle to hide dogs that have already been fostered or adopted from the main website.</p>
       <table>
-        <tr><th>Dog Name</th><th>Current Status</th><th>Action</th></tr>
-        <tr>
-          <td>Buster</td>
-          <td><span style="color: green; font-weight: bold;">Visible (Available)</span></td>
-          <td><button class="btn-sm">Hide Dog</button></td>
-        </tr>
-        <tr>
-          <td>Luna</td>
-          <td><span style="color: red; font-weight: bold;">Hidden (Fostered)</span></td>
-          <td><button class="btn-sm hidden">Unhide Dog</button></td>
-        </tr>
+        <thead>
+          <tr><th>Dog Name</th><th>Current Status</th><th>Action</th></tr>
+        </thead>
+        <tbody id="dogsTableBody">
+          <tr><td colspan="3">Loading dogs...</td></tr>
+        </tbody>
       </table>
 
-      <div style="margin-top: 4rem; padding: 1rem; background: #fee2e2; border-radius: 10px; color: #991b1b;">
-        <strong>Developer Note:</strong> This UI is currently static. The volunteer web developer must initialize Firebase Firestore and Auth to bind this dashboard to the live database.
-      </div>
     </div>
   </div>
+
+  <script type="module">
+    import { db, storage, collection, addDoc, getDocs, updateDoc, doc, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
+
+    // Fetch and display dogs in the manage table
+    async function loadDogsTable() {
+      const tbody = document.getElementById('dogsTableBody');
+      tbody.innerHTML = '';
+      const querySnapshot = await getDocs(collection(db, "dogs"));
+      
+      if(querySnapshot.empty) {
+         tbody.innerHTML = '<tr><td colspan="3">No dogs found.</td></tr>';
+         return;
+      }
+
+      querySnapshot.forEach((document) => {
+        const dog = document.data();
+        const dogId = document.id;
+        const isHidden = dog.hidden || false;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${dog.name}</td>
+          <td><span style="color: ${isHidden ? 'red' : 'green'}; font-weight: bold;">${isHidden ? 'Hidden (Adopted/Fostered)' : 'Visible (Available)'}</span></td>
+          <td>
+            <button class="btn-sm ${isHidden ? 'hidden' : ''}" onclick="window.toggleDogVisibility('${dogId}', ${isHidden})">
+              ${isHidden ? 'Unhide Dog' : 'Hide Dog'}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Attach function to window so the onclick attribute can access it
+    window.toggleDogVisibility = async (dogId, currentState) => {
+      await updateDoc(doc(db, "dogs", dogId), {
+        hidden: !currentState
+      });
+      loadDogsTable(); // Reload the table
+    };
+
+    // Load table on startup
+    loadDogsTable();
+
+    // Handle form submission
+    document.getElementById('add-dog-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('addDogBtn');
+      btn.innerText = "Uploading Photo...";
+      btn.disabled = true;
+
+      try {
+        const fileInput = document.getElementById('dogPhoto');
+        const file = fileInput.files[0];
+        
+        // 1. Upload the photo to Firebase Storage
+        const storageRef = ref(storage, 'dogs/' + new Date().getTime() + '_' + file.name);
+        await uploadBytes(storageRef, file);
+        const photoURL = await getDownloadURL(storageRef);
+
+        btn.innerText = "Saving to Database...";
+
+        // 2. Save the details to Firestore
+        await addDoc(collection(db, "dogs"), {
+          name: document.getElementById('dogName').value,
+          breed: document.getElementById('dogBreed').value,
+          size: document.getElementById('dogSize').value,
+          age: document.getElementById('dogAge').value,
+          goodWithKids: document.getElementById('dogKids').checked,
+          goodWithCats: document.getElementById('dogCats').checked,
+          goodWithDogs: document.getElementById('dogDogs').checked,
+          photoURL: photoURL,
+          hidden: false,
+          timestamp: new Date().toISOString()
+        });
+
+        alert("Dog successfully published to the adoption page!");
+        document.getElementById('add-dog-form').reset();
+        btn.innerText = "Publish Dog Profile";
+        btn.disabled = false;
+        loadDogsTable(); // Refresh table
+
+      } catch (error) {
+        console.error("Error adding dog: ", error);
+        alert("Failed to add dog. See console for details.");
+        btn.innerText = "Publish Dog Profile";
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
