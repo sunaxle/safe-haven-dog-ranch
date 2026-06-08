@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Amazon Wishlist | Safe Haven Dog Ranch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero-wishlist {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/hero_rescue_dog_1778545401749.png') center/cover no-repeat;
+      padding: 6rem 2rem;
+      text-align: center;
+      color: white;
+    }
+    .hero-wishlist h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #ff9900; }
+    .hero-wishlist p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+    
+    .wishlist-content { padding: 5rem 2rem; background: var(--bg-light); text-align: center; }
+    .needs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 3rem auto; }
+    .need-card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #ff9900; text-align: left; }
+    .need-card h3 { color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.3rem; }
+    .need-card p { color: #666; font-size: 0.95rem; line-height: 1.5; }
+    
+    .amazon-cta { margin: 4rem auto 0; max-width: 600px; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .amazon-cta h2 { color: #111; margin-bottom: 1rem; }
+    .btn-amazon { background-color: #ff9900; color: #111; padding: 1rem 2rem; font-size: 1.2rem; display: inline-block; width: 100%; border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 1rem; transition: background 0.3s; }
+    .btn-amazon:hover { background-color: #e68a00; }
+    .troubleshoot-text { font-size: 0.85rem; color: #888; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="adopt.html">Adopt</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-wishlist fade-in">
+    <div class="container">
+      <h1>Our Amazon Wishlist</h1>
+      <p>Prefer to send physical supplies instead of a monetary donation? We go through massive amounts of food, cleaning supplies, and toys every week. Sending an item from our wishlist helps us keep the ranch running smoothly!</p>
+    </div>
+  </section>
+
+  <section class="wishlist-content fade-in">
+    <div class="container">
+      <h2 style="font-size: 2.5rem; color: var(--secondary-color);">Our Most Frequently Needed Items</h2>
+      <p style="color: #666; max-width: 600px; margin: 1rem auto 0;">These are the items we are constantly running out of. Every donation helps directly improve the lives of our rescues.</p>
+      
+      <div class="needs-grid">
+        <div class="need-card">
+          <h3>🧹 Cleaning Supplies</h3>
+          <p>Bleach, paper towels, heavy-duty trash bags, and dog-safe floor cleaners. Keeping the ranch sterile and clean is our biggest daily task!</p>
+        </div>
+        <div class="need-card">
+          <h3>🥩 High-Quality Dog Food</h3>
+          <p>We specifically need Purina Pro Plan or Science Diet for sensitive stomachs. Our medically needy dogs require top-tier nutrition to heal.</p>
+        </div>
+        <div class="need-card">
+          <h3>🎾 Tough Chew Toys</h3>
+          <p>Kong toys, durable ropes, and heavy-duty chew bones. Toys are essential for mental stimulation and preventing anxiety in the kennels.</p>
+        </div>
+        <div class="need-card">
+          <h3>🛏️ Blankets & Puppy Pads</h3>
+          <p>Fleece blankets, XL pee pads, and soft towels. These keep our puppies and senior dogs warm, comfortable, and dry.</p>
+        </div>
+      </div>
+
+      <div class="amazon-cta">
+        <h2>Ready to send some love?</h2>
+        <p style="color: #555; margin-bottom: 1rem;">Click the button below to browse our official Amazon Wishlist. Items will automatically be shipped directly to our front door!</p>
+        <a href="https://www.amazon.com/hz/wishlist/ls/33XMHJWBJGHUP?ref_=wl_share" class="btn-amazon" target="_blank">🛒 Shop Our Amazon Wishlist</a>
+        <p class="troubleshoot-text"><strong>Note to Rescuers:</strong> If this link says "Page Not Found", it means your Amazon Wishlist privacy is currently set to "Private". You must log into Amazon, go to Wishlist Settings, and change it to "Public" or "Shared" for it to work!</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #1a1a1a; color: white; padding: 4rem 2rem; margin-top: 0;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+      <div style="text-align: center; margin-top: 3rem; color: #888; font-size: 0.9rem; grid-column: 1 / -1;">
+        &copy; 2026 Safe Haven Dog Ranch. A registered 501(c)(3) non-profit.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
