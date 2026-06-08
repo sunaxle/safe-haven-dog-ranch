@@ -19,6 +19,15 @@
     .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
     .badge.adopt { background: #e0f2fe; color: #0284c7; }
     .badge.foster { background: #dcfce7; color: #166534; }
+    
+    /* New Onboarding Styles */
+    .progress-bar-container { background: #eee; border-radius: 10px; height: 10px; width: 100%; margin-top: 10px; overflow: hidden; }
+    .progress-bar { background: var(--primary-color); height: 100%; width: 0%; transition: width 0.5s; }
+    .checklist-item { display: flex; align-items: center; gap: 10px; color: #555; margin-bottom: 5px; }
+    .checklist-item.done { color: green; text-decoration: line-through; }
+    .tour-tooltip { position: absolute; background: var(--primary-color); color: white; padding: 1rem; border-radius: 8px; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); max-width: 250px; }
+    .tour-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9998; display: none; }
+    .relative { position: relative; }
   </style>
 </head>
 <body>
@@ -77,6 +86,20 @@
     
     <div class="content-area">
       <div id="main-admin-content">
+      
+      <!-- Gamified Checklist -->
+      <div id="setup-checklist-card" style="background: white; border: 2px solid var(--primary-color); border-radius: 10px; padding: 2rem; margin-bottom: 3rem;">
+        <h2 style="color: var(--primary-color); margin-bottom: 0.5rem;">🚀 Site Setup Progress</h2>
+        <div class="progress-bar-container"><div class="progress-bar" id="setup-progress"></div></div>
+        <p style="margin-top: 10px; font-weight: bold;" id="setup-text">0% Complete</p>
+        <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="checklist-item" id="check-logo">⏳ Logo & Mission Uploaded</div>
+          <div class="checklist-item" id="check-dogs">⏳ 3 Dogs Added</div>
+          <div class="checklist-item" id="check-petfinder">⏳ PetFinder Synced (Optional)</div>
+          <div class="checklist-item" id="check-donations">⏳ Donation Links Added</div>
+        </div>
+      </div>
+
       <h2 style="color: #333; margin-bottom: 1rem;">Submitted Applications</h2>
       <table>
         <tr><th>Applicant Name</th><th>Type</th><th>Dog Requested</th><th>Date</th><th>Action</th></tr>
@@ -96,9 +119,23 @@
         </tr>
       </table>
 
-      <h2 style="color: #333; margin-top: 4rem; margin-bottom: 1rem;">➕ Add New Rescue Dog</h2>
+      <h2 style="color: #333; margin-top: 4rem; margin-bottom: 1rem;" id="tour-add-dog">➕ Add New Rescue Dog</h2>
       <p style="color: #666; margin-bottom: 2rem;">Upload a photo and details to create a new dog profile. This will instantly publish the dog to the public Adopt page.</p>
       
+      <!-- PetFinder & Dummy Data Quick Actions -->
+      <div style="display: flex; gap: 1rem; margin-bottom: 2rem; background: #e0f2fe; padding: 1.5rem; border-radius: 10px;">
+        <div style="flex: 1;">
+          <h3 style="color: #0284c7; margin-bottom: 0.5rem;">Sync from PetFinder</h3>
+          <input type="text" id="pf-shelter-id" placeholder="Shelter ID (e.g. TX123)" style="padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+          <button onclick="window.syncPetFinder()" class="btn-sm" style="background: #0284c7;">Sync Dogs</button>
+        </div>
+        <div style="flex: 1; border-left: 2px solid #bae6fd; padding-left: 1rem;">
+          <h3 style="color: #0284c7; margin-bottom: 0.5rem;">Developer Tools</h3>
+          <button onclick="window.loadDummyData()" class="btn-sm" style="background: #64748b;">Load Example Dogs</button>
+          <button onclick="window.wipeDummyData()" class="btn-sm" style="background: #ef4444;">Wipe All Dogs</button>
+        </div>
+      </div>
+
       <div style="background: #f8fafc; padding: 2rem; border-radius: 10px; border: 1px solid #e2e8f0; max-width: 600px;">
         <form id="add-dog-form" style="display: flex; flex-direction: column; gap: 1rem;">
           
@@ -141,8 +178,17 @@
           </div>
 
           <div style="margin-top: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label style="font-weight: bold; color: #333;">Dog Biography</label>
+              <button type="button" onclick="window.generateAIBio()" class="btn-sm" style="background: #8b5cf6;">✨ Generate AI Bio</button>
+            </div>
+            <textarea id="dogStory" placeholder="Write a compelling story about this dog..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px; min-height: 120px;" required></textarea>
+          </div>
+
+          <div style="margin-top: 1rem;">
             <label style="font-weight: bold; color: #333;">Upload Photo</label><br>
-            <input type="file" id="dogPhoto" accept="image/*" style="margin-top: 5px;" required>
+            <input type="file" id="dogPhoto" accept="image/*" style="margin-top: 5px;">
+            <small style="color: #666; display: block; margin-top: 5px;">(Optional for this demo if using AI)</small>
           </div>
 
           <button type="submit" id="addDogBtn" class="btn btn-primary" style="margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem; border: none; cursor: pointer;">Publish Dog Profile</button>
@@ -150,10 +196,10 @@
       </div>
 
       <h2 style="color: #333; margin-top: 4rem; margin-bottom: 1rem;">🐾 Manage Existing Dogs</h2>
-      <p style="color: #666; margin-bottom: 1rem;">Use the toggle to hide dogs that have already been fostered or adopted from the main website.</p>
+      <p style="color: #666; margin-bottom: 1rem;">Use the toggle to hide dogs that have already been fostered or adopted. Generate social media posts instantly.</p>
       <table>
         <thead>
-          <tr><th>Dog Name</th><th>Current Status</th><th>Action</th></tr>
+          <tr><th>Dog Name</th><th>Current Status</th><th>Actions</th></tr>
         </thead>
         <tbody id="dogsTableBody">
           <tr><td colspan="3">Loading dogs...</td></tr>
@@ -238,14 +284,24 @@
         tr.innerHTML = `
           <td>${dog.name}</td>
           <td><span style="color: ${isHidden ? 'red' : 'green'}; font-weight: bold;">${isHidden ? 'Hidden (Adopted/Fostered)' : 'Visible (Available)'}</span></td>
-          <td>
+          <td style="display: flex; gap: 5px;">
             <button class="btn-sm ${isHidden ? 'hidden' : ''}" onclick="window.toggleDogVisibility('${dogId}', ${isHidden})">
               ${isHidden ? 'Unhide Dog' : 'Hide Dog'}
+            </button>
+            <button class="btn-sm" style="background: #ec4899;" onclick="window.generateSocialPost('${dog.name}', '${dog.breed}')">
+              📱 Generate Social Post
             </button>
           </td>
         `;
         tbody.appendChild(tr);
       });
+      
+      // Update Checklist if 3 dogs added
+      if(querySnapshot.size >= 3) {
+        document.getElementById('check-dogs').classList.add('done');
+        document.getElementById('check-dogs').innerHTML = '✅ 3 Dogs Added';
+        updateProgress();
+      }
     }
 
     // Attach function to window so the onclick attribute can access it
@@ -269,11 +325,14 @@
       try {
         const fileInput = document.getElementById('dogPhoto');
         const file = fileInput.files[0];
+        let photoURL = "assets/IMG_4718.JPEG"; // Default fallback
         
-        // 1. Upload the photo to Firebase Storage
-        const storageRef = ref(storage, 'dogs/' + new Date().getTime() + '_' + file.name);
-        await uploadBytes(storageRef, file);
-        const photoURL = await getDownloadURL(storageRef);
+        if (file) {
+          // 1. Upload the photo to Firebase Storage
+          const storageRef = ref(storage, 'dogs/' + new Date().getTime() + '_' + file.name);
+          await uploadBytes(storageRef, file);
+          photoURL = await getDownloadURL(storageRef);
+        }
 
         btn.innerText = "Saving to Database...";
 
@@ -286,6 +345,7 @@
           goodWithKids: document.getElementById('dogKids').checked,
           goodWithCats: document.getElementById('dogCats').checked,
           goodWithDogs: document.getElementById('dogDogs').checked,
+          story: document.getElementById('dogStory').value || "",
           photoURL: photoURL,
           hidden: false,
           timestamp: new Date().toISOString()
@@ -304,6 +364,168 @@
         btn.disabled = false;
       }
     });
+
+    // --- Onboarding Suite Logic ---
+    
+    // Checklist Progress logic
+    window.updateProgress = async () => {
+      let completed = 0;
+      let total = 4;
+      
+      const docSnap = await getDoc(doc(db, "site_config", "main"));
+      if (docSnap.exists() && docSnap.data().isConfigured) {
+        completed++;
+        document.getElementById('check-logo').classList.add('done');
+        document.getElementById('check-logo').innerHTML = '✅ Logo & Mission Uploaded';
+      }
+      
+      const dogsSnap = await getDocs(collection(db, "dogs"));
+      if(dogsSnap.size >= 3) {
+        completed++;
+        // text already updated in loadDogsTable
+      }
+      
+      const petfinderSynced = localStorage.getItem('petfinder_synced');
+      if(petfinderSynced === "true") {
+        completed++;
+        document.getElementById('check-petfinder').classList.add('done');
+        document.getElementById('check-petfinder').innerHTML = '✅ PetFinder Synced';
+      }
+      
+      // Simulate donation links for now
+      if(localStorage.getItem('donations_linked') === "true") {
+        completed++;
+        document.getElementById('check-donations').classList.add('done');
+        document.getElementById('check-donations').innerHTML = '✅ Donation Links Added';
+      }
+
+      const percentage = Math.round((completed / total) * 100);
+      document.getElementById('setup-progress').style.width = percentage + '%';
+      document.getElementById('setup-text').innerText = percentage + '% Complete';
+    };
+    
+    setTimeout(updateProgress, 1000);
+
+    // AI Simulated Biography Generation
+    window.generateAIBio = () => {
+      const name = document.getElementById('dogName').value || "This sweet pup";
+      const breed = document.getElementById('dogBreed').value || "dog";
+      const kids = document.getElementById('dogKids').checked ? "adores children" : "is looking for a calm home";
+      
+      document.getElementById('dogStory').value = `Meet ${name}! ✨ A wonderful ${breed} who has so much love to give. ${name} ${kids} and is ready to be your new best friend. Despite a tough past, they have a heart of gold and are just looking for a second chance. Adopt ${name} today and complete your family! 🐾❤️`;
+    };
+
+    // AI Simulated Social Media Generation
+    window.generateSocialPost = (name, breed) => {
+      alert(`✨ AI Generated Instagram Post:\n\nLooking for your new best friend?! 😍 Meet ${name}, an absolutely gorgeous ${breed} available for adoption right now! They are looking for a forever home and have so much love to give. Come visit us at the ranch!\n\n#DogRescue #AdoptDontShop #${name.replace(/\s+/g,'')} #RescueDog #${breed.replace(/\s+/g,'')}`);
+    };
+
+    // PetFinder Sync Simulation
+    window.syncPetFinder = async () => {
+      const id = document.getElementById('pf-shelter-id').value;
+      if(!id) return alert("Please enter a Shelter ID.");
+      alert(`Fetching dogs from PetFinder for shelter ${id}... (Simulated)`);
+      
+      // We will just load the dummy data as the simulation
+      localStorage.setItem('petfinder_synced', 'true');
+      await window.loadDummyData();
+      updateProgress();
+    };
+
+    // Dummy Data Load
+    window.loadDummyData = async () => {
+      const dummyDogs = [
+        { name: "Apollo", breed: "Husky Mix", size: "large", age: "adult", story: "A majestic boy.", photoURL: "assets/IMG_4718.JPEG" },
+        { name: "Bella", breed: "Labrador", size: "large", age: "puppy", story: "Sweet and playful.", photoURL: "assets/IMG_4718.JPEG" },
+        { name: "Charlie", breed: "Beagle", size: "medium", age: "adult", story: "Loves to sniff.", photoURL: "assets/IMG_4718.JPEG" },
+        { name: "Daisy", breed: "Chihuahua", size: "small", age: "senior", story: "A tiny lap dog.", photoURL: "assets/IMG_4718.JPEG" },
+        { name: "Max", breed: "German Shepherd", size: "large", age: "adult", story: "Loyal and protective.", photoURL: "assets/IMG_4718.JPEG" }
+      ];
+      
+      for(let d of dummyDogs) {
+        await addDoc(collection(db, "dogs"), { ...d, hidden: false, timestamp: new Date().toISOString() });
+      }
+      alert("5 Example Dogs loaded successfully!");
+      loadDogsTable();
+    };
+
+    // Wipe Dummy Data
+    window.wipeDummyData = async () => {
+      if(!confirm("Are you sure you want to delete ALL dogs from the database?")) return;
+      const querySnapshot = await getDocs(collection(db, "dogs"));
+      
+      // In a real app we'd use batched writes or deleteDoc, but for this demo we'll use a dynamic import of deleteDoc
+      const { deleteDoc } = await import('./firebase-config.js');
+      
+      for (const d of querySnapshot.docs) {
+        await deleteDoc(doc(db, "dogs", d.id));
+      }
+      alert("All dogs wiped.");
+      loadDogsTable();
+    };
+
+    // Interactive Tour Logic
+    window.initTour = () => {
+      if(localStorage.getItem('tour_completed') === 'true') return;
+      
+      // Simple Tour System
+      const overlay = document.createElement('div');
+      overlay.className = 'tour-overlay';
+      document.body.appendChild(overlay);
+      
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tour-tooltip';
+      document.body.appendChild(tooltip);
+
+      let step = 0;
+      const steps = [
+        { 
+          el: document.getElementById('setup-checklist-card'), 
+          text: "Welcome to your Admin Dashboard! Use this checklist to track your setup progress." 
+        },
+        { 
+          el: document.getElementById('tour-add-dog'), 
+          text: "Here is where you'll add dogs. You can even use the AI Generator to write bios for you!" 
+        }
+      ];
+
+      const showStep = () => {
+        if(step >= steps.length) {
+          overlay.style.display = 'none';
+          tooltip.style.display = 'none';
+          localStorage.setItem('tour_completed', 'true');
+          steps.forEach(s => s.el.classList.remove('relative'));
+          return;
+        }
+
+        const target = steps[step].el;
+        if(!target) { step++; showStep(); return; }
+
+        overlay.style.display = 'block';
+        steps.forEach(s => { if(s.el) { s.el.style.zIndex = '1'; s.el.style.background = s.el.style.background === 'white' ? 'white' : ''; } });
+        
+        target.classList.add('relative');
+        target.style.zIndex = '9999';
+        target.style.background = 'white'; // ensure it pops
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const rect = target.getBoundingClientRect();
+        tooltip.style.display = 'block';
+        tooltip.innerHTML = `<p style="margin-bottom:10px;">${steps[step].text}</p><button id="next-tour-btn" style="background:white; color:var(--primary-color); border:none; padding:5px 10px; border-radius:3px; cursor:pointer; font-weight:bold;">Next</button>`;
+        
+        // Position roughly below the element
+        tooltip.style.top = (rect.bottom + window.scrollY + 10) + 'px';
+        tooltip.style.left = (rect.left + 20) + 'px';
+
+        document.getElementById('next-tour-btn').onclick = () => { step++; showStep(); };
+      };
+
+      // Slight delay to ensure render
+      setTimeout(showStep, 1500);
+    };
+
+    document.addEventListener('DOMContentLoaded', initTour);
+
   </script>
 </body>
 </html>

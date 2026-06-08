@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -18,7 +18,7 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 // Exporting necessary functions for the HTML pages
-export { collection, addDoc, getDocs, query, where, updateDoc, doc, setDoc, getDoc, ref, uploadBytes, getDownloadURL };
+export { collection, addDoc, getDocs, query, where, updateDoc, doc, setDoc, getDoc, deleteDoc, ref, uploadBytes, getDownloadURL };
 
 // To the Volunteer Web Developer: 
 // Firebase is officially initialized and connected to the project!
