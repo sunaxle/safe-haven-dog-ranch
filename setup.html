@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Your Rescue Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: var(--bg-light);
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .setup-container {
+      background: var(--bg-white);
+      padding: 4rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--secondary-color);
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .btn-large {
+      display: inline-block;
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+    .btn-large:hover {
+      background: var(--secondary-color);
+    }
+    .hidden {
+      display: none;
+    }
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #eee;
+      z-index: 1;
+    }
+    .step {
+      width: 40px;
+      height: 40px;
+      background: #eee;
+      color: #999;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      z-index: 2;
+      position: relative;
+    }
+    .step.active {
+      background: var(--primary-color);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="setup-container">
+    <div class="step-indicator">
+      <div class="step active" id="indicator-1">1</div>
+      <div class="step" id="indicator-2">2</div>
+      <div class="step" id="indicator-3">3</div>
+    </div>
+
+    <!-- Step 1: Welcome & Basic Info -->
+    <div id="step-1">
+      <h1>Welcome to Your Rescue Site! 🐾</h1>
+      <p>Let's get your website activated and ready for adoptions. We just need a few basic details to configure your template.</p>
+      
+      <div class="form-group">
+        <label>Rescue Name</label>
+        <input type="text" id="rescueName" placeholder="e.g., Texas Paws Rescue" required>
+      </div>
+      <div class="form-group">
+        <label>Contact Email</label>
+        <input type="email" id="contactEmail" placeholder="e.g., adopt@texaspaws.org" required>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" id="location" placeholder="e.g., Austin, TX" required>
+      </div>
+      
+      <button class="btn-large" onclick="nextStep(2)">Next: Branding</button>
+    </div>
+
+    <!-- Step 2: Branding -->
+    <div id="step-2" class="hidden">
+      <h1>Your Branding 🎨</h1>
+      <p>Tell the world what your rescue is all about.</p>
+      
+      <div class="form-group">
+        <label>Your Mission Statement</label>
+        <textarea id="missionStatement" placeholder="e.g., We are dedicated to rescuing abandoned dogs and finding them loving forever homes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Upload Rescue Logo</label>
+        <input type="file" id="rescueLogo" accept="image/*">
+        <small style="color: #666; display: block; margin-top: 5px;">(Leave blank to use a default paw print)</small>
+      </div>
+      
+      <div style="display: flex; gap: 1rem;">
+        <button class="btn-large" style="background: #ccc;" onclick="nextStep(1)">Back</button>
+        <button class="btn-large" onclick="nextStep(3)">Next: Launch</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Launch -->
+    <div id="step-3" class="hidden">
+      <h1>You're All Set! 🚀</h1>
+      <p>Click the button below to activate your site. Once activated, you can start adding dogs to your Adoption Gallery using the Admin Dashboard.</p>
+      
+      <div style="display: flex; gap: 1rem;">
+        <button class="btn-large" style="background: #ccc;" onclick="nextStep(2)">Back</button>
+        <button class="btn-large" id="activateBtn" onclick="activateSite()">Activate Website</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db, storage, doc, setDoc, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
+
+    window.nextStep = function(stepNum) {
+      document.getElementById('step-1').classList.add('hidden');
+      document.getElementById('step-2').classList.add('hidden');
+      document.getElementById('step-3').classList.add('hidden');
+      
+      document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+      
+      // Update indicators
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      for(let i=1; i<=stepNum; i++) {
+        document.getElementById(`indicator-${i}`).classList.add('active');
+      }
+    }
+
+    window.activateSite = async function() {
+      const btn = document.getElementById('activateBtn');
+      btn.innerText = "Activating...";
+      btn.disabled = true;
+
+      try {
+        const rescueName = document.getElementById('rescueName').value || "My Rescue";
+        const contactEmail = document.getElementById('contactEmail').value;
+        const location = document.getElementById('location').value;
+        const missionStatement = document.getElementById('missionStatement').value || "We save dogs and find them forever homes!";
+        
+        let logoUrl = "";
+        const fileInput = document.getElementById('rescueLogo');
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const storageRef = ref(storage, 'branding/' + new Date().getTime() + '_' + file.name);
+          await uploadBytes(storageRef, file);
+          logoUrl = await getDownloadURL(storageRef);
+        }
+
+        // Save to Firebase
+        await setDoc(doc(db, "site_config", "main"), {
+          rescueName: rescueName,
+          contactEmail: contactEmail,
+          location: location,
+          missionStatement: missionStatement,
+          logoUrl: logoUrl,
+          isConfigured: true,
+          updatedAt: new Date().toISOString()
+        });
+
+        alert("Site Activated Successfully!");
+        window.location.href = "index.html";
+
+      } catch (error) {
+        console.error("Error saving configuration:", error);
+        alert("Failed to activate site. Please try again.");
+        btn.innerText = "Activate Website";
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

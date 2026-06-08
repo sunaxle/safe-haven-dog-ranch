@@ -3,99 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate & Support | Safe Haven Dog Ranch</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+  <title>Support the Pups | Safe Haven Dog Ranch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Hero Section */
+    .hero-donate {
+      position: relative;
+      background: linear-gradient(rgba(43, 75, 111, 0.7), rgba(43, 75, 111, 0.8)), url('assets/rescue_dog_3_1778552211586.png') center/cover no-repeat;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .hero-donate h1 {
+      color: var(--text-light);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero-donate p {
+      color: var(--text-light);
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* Emotional Impact Section */
+    .impact-section {
+      padding: 5rem 2rem;
+      background: var(--bg-white);
+      text-align: center;
+    }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 3rem auto 0;
+    }
+    .impact-item {
+      padding: 2rem;
+    }
+    .impact-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .impact-item h3 {
+      color: var(--secondary-color);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .impact-item p {
+      color: #666;
+    }
+
+    /* Donation Options */
+    .donate-options {
+      background: var(--bg-light);
+      padding: 6rem 2rem;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 4rem;
+    }
     .donate-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 4rem 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
       max-width: 1200px;
       margin: 0 auto;
     }
     .donate-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      border-top: 5px solid transparent;
+      display: flex;
+      flex-direction: column;
     }
     .donate-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
-    .donate-card h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .donate-card p { color: #666; margin-bottom: 2rem; }
+    .donate-card.stripe { border-top-color: #635bff; }
+    .donate-card.amazon { border-top-color: #ff9900; }
+    .donate-card.cashapp { border-top-color: #00D632; }
+    .donate-card.zelle { border-top-color: #7413dc; }
+    
+    .donate-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+    .donate-card p {
+      color: #666;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+    .donate-amount {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      background: var(--bg-light);
+      padding: 10px;
+      border-radius: 8px;
+    }
+    
+    .btn-donate {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
     .btn-amazon { background-color: #ff9900; color: #111; }
+    .btn-amazon:hover { background-color: #e68a00; }
     .btn-cashapp { background-color: #00D632; color: white; }
+    .btn-cashapp:hover { background-color: #00b329; }
     .btn-zelle { background-color: #7413dc; color: white; }
+    .btn-zelle:hover { background-color: #5d0fad; }
     .btn-stripe { background-color: #635bff; color: white; }
+    .btn-stripe:hover { background-color: #4b44d6; }
+
+    /* Trust Section */
+    .trust-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--secondary-color);
+      color: var(--text-light);
+    }
+    .trust-section h2 {
+      color: var(--primary-color);
+    }
+    .trust-section p {
+      max-width: 800px;
+      margin: 1rem auto;
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
   <header>
-    <nav>
-      <div class="logo">🐾 Safe Haven Dog Ranch</div>
-      <ul class="nav-links">
-          <li><a href="index.html">Adopt</a></li>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="adopt.html">Adopt</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="success-stories.html">Success Stories</a></li>
-          <li><a href="volunteer.html">Volunteer / Foster</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="sponsorships.html">Sponsorships</a></li>
-          <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
+          <li><a href="donate.html" class="btn btn-accent" style="background-color: var(--primary-color);">Support the Pups!</a></li>
         </ul>
-    </nav>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 40vh;">
-    <div class="hero-content">
-      <h1 style="color: white; font-size: 3.5rem;">Support the Pups!</h1>
-      <p style="color: white; font-size: 1.2rem;">We rely 100% on donations to rescue, rehabilitate, and rehome our dogs. Choose your preferred way to give below.</p>
+  <section class="hero-donate fade-in">
+    <div class="container">
+      <h1>Change a Life Today</h1>
+      <p>We rely 100% on the generosity of animal lovers like you. Your donation directly funds medical care, food, rehabilitation, and finding forever homes for our rescue dogs.</p>
+      <a href="#ways-to-give" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">See Ways to Give</a>
     </div>
   </section>
 
-  <div class="donate-grid">
-    <div class="donate-card">
-      <h2>Amazon Wishlist</h2>
-      <p>Send food, toys, and medical supplies directly to our ranch doors!</p>
-      <a href="#" class="btn btn-amazon">Shop Wishlist</a>
+  <section class="impact-section fade-in">
+    <div class="container">
+      <h2 class="section-title">Where Your Donation Goes</h2>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <div class="impact-icon">🏥</div>
+          <h3>Medical Care</h3>
+          <p>Vaccinations, spay/neuter surgeries, heartworm treatments, and emergency vet visits for severely neglected dogs.</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon">🥩</div>
+          <h3>Nutrition & Board</h3>
+          <p>High-quality food, treats, supplements, and maintaining a clean, safe ranch environment for our dogs.</p>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon">🎾</div>
+          <h3>Rehabilitation</h3>
+          <p>Training, behavioral therapy, toys, and socialization programs to prepare them for their forever families.</p>
+        </div>
+      </div>
     </div>
-    
-    <div class="donate-card">
-      <h2>Debit / Credit Card</h2>
-      <p>Make a secure, one-time or recurring donation via Stripe.</p>
-      <a href="#" class="btn btn-stripe">Donate Securely</a>
-    </div>
+  </section>
 
-    <div class="donate-card">
-      <h2>Cash App</h2>
-      <p>Send funds instantly with zero fees using our Cashtag.</p>
-      <h3 style="margin-bottom: 1rem;">$SafeHavenRescue</h3>
-      <a href="#" class="btn btn-cashapp">Open Cash App</a>
-    </div>
-
-    <div class="donate-card">
-      <h2>Zelle</h2>
-      <p>Direct bank transfer straight to our non-profit account.</p>
-      <h3 style="margin-bottom: 1rem;">donate@safehavendogranch.com</h3>
-      <a href="#" class="btn btn-zelle">Open Zelle</a>
-    </div>
-  </div>
-
-  <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
-    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+  <section id="ways-to-give" class="donate-options fade-in">
+    <div class="container">
+      <h2 class="section-title">Ways to Support Us</h2>
+      <p class="section-subtitle">Choose the method that works best for you. Every single dollar makes a difference.</p>
       
+      <div class="donate-grid">
+        <div class="donate-card stripe">
+          <h2>Credit / Debit</h2>
+          <p>Make a secure, one-time or recurring monthly donation directly to our rescue via Stripe.</p>
+          <a href="https://donate.stripe.com/test_12345" class="btn btn-donate btn-stripe" target="_blank">Donate Securely</a>
+        </div>
+
+        <div class="donate-card amazon">
+          <h2>Amazon Wishlist</h2>
+          <p>Prefer to send supplies? Purchase items directly from our wishlist and they ship right to our door.</p>
+          <a href="https://www.amazon.com/hz/wishlist/ls/SAFEHAVENDOG" class="btn btn-donate btn-amazon" target="_blank">Shop Wishlist</a>
+        </div>
+
+        <div class="donate-card cashapp">
+          <h2>Cash App</h2>
+          <p>Send funds instantly with zero fees. Perfect for quick, direct donations to the rescue.</p>
+          <div class="donate-amount">$SafeHavenRescue</div>
+          <a href="https://cash.app/$SafeHavenRescue" class="btn btn-donate btn-cashapp" target="_blank">Open Cash App</a>
+        </div>
+
+        <div class="donate-card zelle">
+          <h2>Zelle</h2>
+          <p>Direct bank transfer straight to our non-profit account with absolutely no processing fees.</p>
+          <div class="donate-amount" style="font-size: 1.2rem;">donate@safehavendogranch.com</div>
+          <a href="https://enroll.zellepay.com" class="btn btn-donate btn-zelle" target="_blank">Open Zelle</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-section fade-in">
+    <div class="container">
+      <h2>Commitment to Transparency</h2>
+      <p>Safe Haven Dog Ranch is an official registered 501(c)(3) non-profit organization. All donations are tax-deductible to the fullest extent of the law.</p>
+      <p>We pride ourselves on transparency and ensure that every contribution is maximized for the direct benefit of the dogs in our care.</p>
+    </div>
+  </section>
+
+  <footer style="background: #1a1a1a; color: white; padding: 4rem 2rem; margin-top: 0;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
       <div>
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🐾 Safe Haven Dog Ranch</h3>
         <p>123 Rescue Way<br>Edinburg, Texas 78541</p>
         <p>contact@safehavendogranch.com</p>
       </div>
-
       <div>
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Newsletter</h3>
         <p style="margin-bottom: 1rem;">Sign up for our "Monthly Paws" newsletter!</p>
@@ -104,25 +265,16 @@
           <button class="btn btn-accent" style="padding: 10px 20px;">Subscribe</button>
         </form>
       </div>
-
       <div>
-        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Follow Us</h3>
-        <!-- Facebook Feed Embedded -->
-        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61577525760282&tabs=timeline&width=340&height=350&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
-                width="340" 
-                height="350" 
-                style="border:none;overflow:hidden;width:100%;max-width:340px;height:350px;border-radius:8px;" 
-                scrolling="no" 
-                frameborder="0" 
-                allowfullscreen="true" 
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-        </iframe>
+        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Trust & Transparency</h3>
+        <p style="color: #aaa; font-size: 0.95rem;">Safe Haven Dog Ranch is a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</p>
       </div>
-      
     </div>
     <div style="text-align: center; margin-top: 3rem; color: #888; font-size: 0.9rem;">
-      &copy; 2026 Safe Haven Dog Ranch. A registered 501(c)(3) non-profit.
+      &copy; 2026 Safe Haven Dog Ranch.
     </div>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

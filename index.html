@@ -76,6 +76,15 @@
 </head>
 <body>
 
+  <!-- Abundantly Obvious Setup Overlay for Owners -->
+  <div id="unconfigured-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: white; padding: 2rem;">
+    <div style="background: white; color: #333; padding: 4rem; border-radius: 20px; max-width: 700px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+      <h1 style="color: var(--primary-color); font-size: 3rem; margin-bottom: 1rem;">Setup Required 🛠️</h1>
+      <p style="font-size: 1.2rem; color: #555; margin-bottom: 2rem; line-height: 1.6;">Welcome to your new Dog Rescue Template! Your site is currently empty. To get started, you need to activate your site, upload your logo, and fill out your mission statement.</p>
+      <a href="setup.html" class="btn btn-primary" style="font-size: 1.5rem; padding: 1.5rem 3rem; border-radius: 10px; width: 100%; display: inline-block;">Start Setup Wizard Now</a>
+    </div>
+  </div>
+
   <!-- Header -->
   <header>
     <div class="container nav-wrapper">
@@ -234,5 +243,43 @@
       &copy; 2026 Safe Haven Dog Ranch. A registered 501(c)(3) non-profit. | <a href="admin.html" style="color: #888; text-decoration: none; border-bottom: 1px dotted #888;">Staff Login</a>
     </div>
   </footer>
+
+  <script type="module">
+    import { db, doc, getDoc } from './firebase-config.js';
+    
+    // Check if site is configured
+    async function checkSiteConfig() {
+      try {
+        const docRef = doc(db, "site_config", "main");
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists() && docSnap.data().isConfigured) {
+          // Site is activated, hide the setup overlay
+          document.getElementById('unconfigured-overlay').style.display = 'none';
+          
+          // Optionally, populate the dynamic content here
+          const data = docSnap.data();
+          if(data.rescueName) {
+            document.title = data.rescueName;
+            document.querySelectorAll('.logo').forEach(el => el.innerHTML = `<span>${data.rescueName}</span>`);
+            document.getElementById('hero-subheadline').innerText = data.missionStatement || "Rescuing Dogs, Empowering People.";
+          }
+        } else {
+          // Site not configured, show the overlay
+          document.getElementById('unconfigured-overlay').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      } catch (e) {
+        console.error("Error fetching config:", e);
+        // On error, show overlay to be safe
+        document.getElementById('unconfigured-overlay').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Initially hide overlay, then check DB
+    document.getElementById('unconfigured-overlay').style.display = 'none';
+    document.addEventListener('DOMContentLoaded', checkSiteConfig);
+  </script>
 </body>
 </html>

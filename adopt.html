@@ -4,196 +4,356 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adopt a Dog | Safe Haven Dog Ranch</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .adopt-layout { max-width: 1400px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: 300px 1fr; gap: 3rem; align-items: start; }
-    
-    /* Advanced Search Sidebar */
-    .filter-sidebar { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .filter-group { margin-bottom: 1.5rem; }
-    .filter-group h3 { color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.1rem; }
-    .filter-option { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; color: #555; }
-    .filter-option input { cursor: pointer; }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: linear-gradient(rgba(43, 75, 111, 0.8), rgba(43, 75, 111, 0.9)), url('assets/hero_rescue_dog_1778545401749.png') center/cover no-repeat;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .hero-content {
+      max-width: 800px;
+    }
+    .hero h1 {
+      color: var(--text-light);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
 
-    /* Pet Finder Iframe */
-    .petfinder-embed { margin-top: 2rem; background: white; padding: 1rem; border-radius: 15px; text-align: center; border: 2px dashed #ddd; }
+    /* Layout */
+    .adopt-layout {
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    
+    /* Sidebar */
+    .filter-sidebar {
+      background: var(--bg-white);
+      padding: 2.5rem 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 100px;
+    }
+    .filter-sidebar h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .filter-group {
+      margin-bottom: 2rem;
+    }
+    .filter-group h3 {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--bg-light);
+    }
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.8rem;
+      color: #555;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .filter-option:hover {
+      color: var(--primary-color);
+    }
+    .filter-option input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-color);
+      cursor: pointer;
+    }
 
     /* Dog Grid */
-    .dog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-    .dog-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-    .dog-card img { width: 100%; height: 250px; object-fit: cover; }
-    .dog-card .info { padding: 1.5rem; }
-    .dog-card h2 { color: var(--primary-color); margin-bottom: 0.5rem; }
-    .badge-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 1rem; }
-    .tag-badge { background: #eee; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: #555; }
+    .dog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2.5rem;
+    }
+    .dog-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .dog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    .dog-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+    .dog-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .dog-card:hover img {
+      transform: scale(1.05);
+    }
+    .dog-card .info {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .dog-card h2 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+    }
+    .dog-breed {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .dog-story {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+    .tag-badge {
+      background: var(--bg-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 2rem;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      z-index: 10;
+      background: white;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal-body {
+      padding: 3rem;
+    }
+    .modal-body h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .modal-body .dog-breed {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .modal-body p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
 
     @media (max-width: 900px) {
       .adopt-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { position: static; }
+      .modal-content { grid-template-columns: 1fr; }
+      .modal-image { height: 300px; }
     }
+
+    /* Loading State */
+    .loading-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem;
+      color: #888;
+    }
+    .spinner {
+      border: 4px solid rgba(0,0,0,0.1);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border-left-color: var(--primary-color);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <header>
-    <nav>
-      <div class="logo">🐾 Safe Haven Dog Ranch</div>
-      <ul class="nav-links">
-          <li><a href="index.html">Adopt</a></li>
+    <div class="container nav-wrapper">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="assets/IMG_4718.JPEG" alt="Safe Haven Dog Ranch Logo" style="height: 50px; border-radius: 50%;">
+          Safe Haven <span>Dog Ranch</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="adopt.html" style="color: var(--primary-color);">Adopt</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="success-stories.html">Success Stories</a></li>
-          <li><a href="volunteer.html">Volunteer / Foster</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="sponsorships.html">Sponsorships</a></li>
           <li><a href="donate.html" class="btn btn-accent">Support the Pups!</a></li>
         </ul>
-    </nav>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); min-height: 30vh; color: white;">
+  <section class="hero fade-in">
     <div class="hero-content">
-      <h1 style="color: white;">Find Your Best Friend</h1>
-      <p style="color: white; font-size: 1.2rem;">Use the advanced filters below to find the perfect addition to your family.</p>
+      <h1>Find Your Soulmate</h1>
+      <p>Every dog at Safe Haven has a unique story, and they are all waiting for their next chapter. Browse our adoption gallery and discover the unconditional love of a rescue dog.</p>
     </div>
   </section>
 
   <div class="adopt-layout">
     <!-- Sidebar Filters -->
-    <div class="filter-sidebar">
-      <h2>Advanced Search</h2>
-      <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+    <div class="filter-sidebar fade-in">
+      <h2><span style="font-size: 1.5rem;">🔍</span> Find Your Match</h2>
       
       <div class="filter-group">
+        <h3>Age Group</h3>
+        <label class="filter-option"><input type="checkbox" value="Puppy" class="filter-cb"> Puppy (Under 1 Year)</label>
+        <label class="filter-option"><input type="checkbox" value="Adult" class="filter-cb"> Adult (1-7 Years)</label>
+        <label class="filter-option"><input type="checkbox" value="Senior" class="filter-cb"> Senior (7+ Years)</label>
+      </div>
+
+      <div class="filter-group">
         <h3>Size</h3>
-        <label class="filter-option"><input type="checkbox" value="small"> Small (Under 25 lbs)</label>
-        <label class="filter-option"><input type="checkbox" value="medium"> Medium (25-60 lbs)</label>
-        <label class="filter-option"><input type="checkbox" value="large"> Large (60+ lbs)</label>
+        <label class="filter-option"><input type="checkbox" value="Small" class="filter-cb"> Small</label>
+        <label class="filter-option"><input type="checkbox" value="Medium" class="filter-cb"> Medium</label>
+        <label class="filter-option"><input type="checkbox" value="Large" class="filter-cb"> Large</label>
       </div>
-
-      <div class="filter-group">
-        <h3>Age</h3>
-        <label class="filter-option"><input type="checkbox" value="puppy"> Puppy (Under 1 Year)</label>
-        <label class="filter-option"><input type="checkbox" value="adult"> Adult (1-7 Years)</label>
-        <label class="filter-option"><input type="checkbox" value="senior"> Senior (7+ Years)</label>
-      </div>
-
-      <div class="filter-group">
-        <h3>Friendly With...</h3>
-        <label class="filter-option"><input type="checkbox" value="kids"> Children</label>
-        <label class="filter-option"><input type="checkbox" value="adults"> Adults Only</label>
-        <label class="filter-option"><input type="checkbox" value="dogs"> Other Dogs</label>
-        <label class="filter-option"><input type="checkbox" value="cats"> Cats</label>
-      </div>
-
-      <!-- Pet Finder Integration -->
-      <div class="petfinder-embed">
-        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">PetFinder Direct</h3>
-        <iframe src="https://www.petfinder.com/member/us/tx/edinburg/safe-haven-dog-ranch" width="100%" height="400" style="border:none;" title="PetFinder"></iframe>
+      
+      <div class="petfinder-embed" style="margin-top: 2rem; background: var(--bg-light); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #eaeaea;">
+        <h3 style="color: var(--secondary-color); margin-bottom: 1rem; font-size: 1.1rem;">PetFinder Direct</h3>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">View our live national listings directly on PetFinder.</p>
+        <iframe src="https://www.petfinder.com/member/us/tx/edinburg/safe-haven-dog-ranch" width="100%" height="300" style="border:none; border-radius: 8px;" title="PetFinder"></iframe>
       </div>
     </div>
 
     <!-- Dogs Grid -->
     <div>
       <div class="dog-grid" id="dogs-container">
-        <p style="grid-column: 1 / -1; text-align: center; color: #666;">Loading available dogs...</p>
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Fetching our beautiful dogs...</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <script type="module">
-    import { db, collection, getDocs } from './firebase-config.js';
-
-    let allDogs = [];
-
-    async function loadDogs() {
-      const container = document.getElementById('dogs-container');
-      const querySnapshot = await getDocs(collection(db, "dogs"));
-      
-      allDogs = [];
-      querySnapshot.forEach((doc) => {
-        const dog = doc.data();
-        if (!dog.hidden) {
-          allDogs.push({ id: doc.id, ...dog });
-        }
-      });
-      
-      renderDogs(allDogs);
-    }
-
-    function renderDogs(dogsToRender) {
-      const container = document.getElementById('dogs-container');
-      container.innerHTML = '';
-
-      if (dogsToRender.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 2rem;">No dogs match your exact criteria. Please try adjusting your filters!</p>';
-        return;
-      }
-
-      dogsToRender.forEach(dog => {
-        const badges = [];
-        if(dog.size) badges.push(`<span class="tag-badge">${dog.size.charAt(0).toUpperCase() + dog.size.slice(1)}</span>`);
-        if(dog.age) badges.push(`<span class="tag-badge">${dog.age.charAt(0).toUpperCase() + dog.age.slice(1)}</span>`);
-        if(dog.goodWithKids) badges.push(`<span class="tag-badge">Kids ✅</span>`);
-        if(dog.goodWithCats) badges.push(`<span class="tag-badge">Cats ✅</span>`);
-        if(dog.goodWithDogs) badges.push(`<span class="tag-badge">Dogs ✅</span>`);
-
-        const card = document.createElement('div');
-        card.className = 'dog-card';
-        card.innerHTML = `
-          <img src="${dog.photoURL || 'placeholder.jpg'}" alt="${dog.name}">
-          <div class="info">
-            <h2>${dog.name}</h2>
-            <div class="badge-container">
-              ${badges.join('')}
-            </div>
-            <p style="color: #666; margin-bottom: 1.5rem;">${dog.breed}</p>
-            <a href="application.html" class="btn btn-primary" style="width: 100%;">Apply to Adopt</a>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // Filter Logic
-    function applyFilters() {
-      const checkedSizes = Array.from(document.querySelectorAll('input[value="small"], input[value="medium"], input[value="large"]')).filter(cb => cb.checked).map(cb => cb.value);
-      const checkedAges = Array.from(document.querySelectorAll('input[value="puppy"], input[value="adult"], input[value="senior"]')).filter(cb => cb.checked).map(cb => cb.value);
-      
-      const requiresKids = document.querySelector('input[value="kids"]').checked;
-      const requiresDogs = document.querySelector('input[value="dogs"]').checked;
-      const requiresCats = document.querySelector('input[value="cats"]').checked;
-
-      const filtered = allDogs.filter(dog => {
-        if (checkedSizes.length > 0 && !checkedSizes.includes(dog.size)) return false;
-        if (checkedAges.length > 0 && !checkedAges.includes(dog.age)) return false;
-        if (requiresKids && !dog.goodWithKids) return false;
-        if (requiresDogs && !dog.goodWithDogs) return false;
-        if (requiresCats && !dog.goodWithCats) return false;
-        return true;
-      });
-
-      renderDogs(filtered);
-    }
-
-    // Attach event listeners to all checkboxes
-    document.querySelectorAll('.filter-option input').forEach(checkbox => {
-      checkbox.addEventListener('change', applyFilters);
-    });
-
-    // Initial load
-    loadDogs();
-  </script>
+  <!-- Dog Modal -->
+  <div class="modal-overlay" id="dog-modal">
+    <div class="modal-content">
+      <div class="modal-close" id="modal-close">&times;</div>
+      <img src="" alt="Dog Photo" class="modal-image" id="modal-img">
+      <div class="modal-body">
+        <h2 id="modal-name">Dog Name</h2>
+        <div class="dog-breed" id="modal-breed">Breed</div>
+        <div class="badge-container" id="modal-badges"></div>
+        <p id="modal-story">Dog story goes here...</p>
+        <a href="application.html" class="btn btn-primary" style="width: 100%;">Submit Adoption Application</a>
+      </div>
+    </div>
+  </div>
 
   <footer style="background: #2b2b2b; color: white; padding: 4rem 2rem; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-      
       <div>
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🐾 Safe Haven Dog Ranch</h3>
         <p>123 Rescue Way<br>Edinburg, Texas 78541</p>
         <p>contact@safehavendogranch.com</p>
       </div>
-
       <div>
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Newsletter</h3>
         <p style="margin-bottom: 1rem;">Sign up for our "Monthly Paws" newsletter!</p>
@@ -202,25 +362,180 @@
           <button class="btn btn-accent" style="padding: 10px 20px;">Subscribe</button>
         </form>
       </div>
-
       <div>
-        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Follow Us</h3>
-        <!-- Facebook Feed Embedded -->
-        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61577525760282&tabs=timeline&width=340&height=350&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
-                width="340" 
-                height="350" 
-                style="border:none;overflow:hidden;width:100%;max-width:340px;height:350px;border-radius:8px;" 
-                scrolling="no" 
-                frameborder="0" 
-                allowfullscreen="true" 
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-        </iframe>
+        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Trust & Transparency</h3>
+        <p style="color: #aaa; font-size: 0.95rem;">Safe Haven Dog Ranch is a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</p>
       </div>
-      
     </div>
     <div style="text-align: center; margin-top: 3rem; color: #888; font-size: 0.9rem;">
-      &copy; 2026 Safe Haven Dog Ranch. A registered 501(c)(3) non-profit.
+      &copy; 2026 Safe Haven Dog Ranch.
     </div>
   </footer>
+
+  <script src="script.js"></script>
+  <script type="module">
+    import { db, collection, getDocs } from './firebase-config.js';
+
+    let allDogs = [];
+
+    async function fetchDogs() {
+      const container = document.getElementById('dogs-container');
+      try {
+        // Try Firebase first
+        const querySnapshot = await getDocs(collection(db, "dogs"));
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            const dog = doc.data();
+            if (!dog.hidden) allDogs.push({ id: doc.id, ...dog });
+          });
+        } else {
+          throw new Error("No dogs found in Firebase");
+        }
+      } catch (error) {
+        console.log("Falling back to local dogs.json due to:", error.message);
+        // Fallback to local JSON
+        try {
+          const res = await fetch('dogs.json');
+          const data = await res.json();
+          allDogs = data.dogs_list || [];
+        } catch (e) {
+          console.error("Failed to load local dogs:", e);
+        }
+      }
+
+      if (allDogs.length > 0) {
+        renderDogs(allDogs);
+      } else {
+        container.innerHTML = '<div class="loading-state"><p>No dogs currently available. Check back soon!</p></div>';
+      }
+    }
+
+    function renderDogs(dogsToRender) {
+      const container = document.getElementById('dogs-container');
+      container.innerHTML = '';
+
+      if (dogsToRender.length === 0) {
+        container.innerHTML = '<div class="loading-state"><p>No dogs match your exact criteria. Please try adjusting your filters!</p></div>';
+        return;
+      }
+
+      dogsToRender.forEach(dog => {
+        const ageBadge = dog.age ? `<span class="tag-badge">${dog.age}</span>` : '';
+        const sizeBadge = dog.size ? `<span class="tag-badge">${dog.size}</span>` : '';
+        
+        const card = document.createElement('div');
+        card.className = 'dog-card fade-in';
+        card.innerHTML = `
+          <div class="dog-image-wrapper">
+            <img src="${dog.photo || dog.photoURL || 'assets/hero_rescue_dog_1778545401749.png'}" alt="${dog.name}">
+          </div>
+          <div class="info">
+            <h2>${dog.name}</h2>
+            <div class="dog-breed">${dog.breed || 'Mixed Breed'}</div>
+            <div class="badge-container">
+              ${ageBadge}
+              ${sizeBadge}
+            </div>
+            <p class="dog-story">${dog.story || 'A wonderful dog looking for a loving home.'}</p>
+            <button class="btn btn-primary btn-read-more" style="width: 100%; margin-top: auto;">Meet ${dog.name}</button>
+          </div>
+        `;
+
+        // Add event listener for modal
+        card.querySelector('.btn-read-more').addEventListener('click', () => openModal(dog));
+        
+        container.appendChild(card);
+      });
+      
+      // Trigger fade-in animation
+      setTimeout(() => {
+        document.querySelectorAll('.dog-card').forEach(el => el.classList.add('visible'));
+      }, 50);
+    }
+
+    // Modal Logic
+    const modal = document.getElementById('dog-modal');
+    const closeBtn = document.getElementById('modal-close');
+
+    function openModal(dog) {
+      document.getElementById('modal-img').src = dog.photo || dog.photoURL || 'assets/hero_rescue_dog_1778545401749.png';
+      document.getElementById('modal-name').textContent = dog.name;
+      document.getElementById('modal-breed').textContent = dog.breed || 'Mixed Breed';
+      document.getElementById('modal-story').textContent = dog.story || 'A wonderful dog looking for a loving home.';
+      
+      const badgesContainer = document.getElementById('modal-badges');
+      badgesContainer.innerHTML = '';
+      if(dog.age) badgesContainer.innerHTML += `<span class="tag-badge">${dog.age}</span>`;
+      if(dog.size) badgesContainer.innerHTML += `<span class="tag-badge">${dog.size}</span>`;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Filter Logic
+    function applyFilters() {
+      const activeFilters = Array.from(document.querySelectorAll('.filter-cb:checked')).map(cb => cb.value.toLowerCase());
+      
+      if (activeFilters.length === 0) {
+        renderDogs(allDogs);
+        return;
+      }
+
+      const filtered = allDogs.filter(dog => {
+        const ageStr = (dog.age || '').toLowerCase();
+        const sizeStr = (dog.size || '').toLowerCase();
+        
+        // A dog matches if ANY of the active filters match its age or size
+        // (OR logic for simplicity, could be AND if desired)
+        return activeFilters.some(f => ageStr.includes(f) || sizeStr.includes(f));
+      });
+
+      renderDogs(filtered);
+    }
+
+    document.querySelectorAll('.filter-cb').forEach(cb => {
+      cb.addEventListener('change', applyFilters);
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', fetchDogs);
+    
+    // Check if site is configured for branding
+    async function fetchSiteBranding() {
+      try {
+        // We already imported db and getDocs, but need doc and getDoc
+        const { doc, getDoc } = await import('./firebase-config.js');
+        const docRef = doc(db, "site_config", "main");
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists() && docSnap.data().isConfigured) {
+          const data = docSnap.data();
+          if(data.rescueName) {
+            document.title = "Adopt a Dog | " + data.rescueName;
+            document.querySelectorAll('.logo').forEach(el => el.innerHTML = `<span>${data.rescueName}</span>`);
+            // Update the hero text
+            const heroHeadline = document.querySelector('.hero h1');
+            const heroSub = document.querySelector('.hero p');
+            if(heroHeadline) heroHeadline.innerText = `Find Your Soulmate at ${data.rescueName}`;
+            if(heroSub) heroSub.innerText = data.missionStatement || `Every dog at ${data.rescueName} has a unique story, and they are all waiting for their next chapter.`;
+          }
+        }
+      } catch (e) {
+        console.log("No custom branding found or error:", e);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', fetchSiteBranding);
+  </script>
 </body>
 </html>

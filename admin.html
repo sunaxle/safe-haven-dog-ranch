@@ -62,6 +62,11 @@
             <span style="width: 25px; text-align: center;">💰</span> Donations
           </a>
         </li>
+        <li style="margin-bottom: 1.5rem;">
+          <a href="#settings" onclick="document.getElementById('settings-section').style.display='block'; document.getElementById('main-admin-content').style.display='none';" style="text-decoration: none; color: #333; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+            <span style="width: 25px; text-align: center;">⚙️</span> Site Settings
+          </a>
+        </li>
         <li style="margin-top: 3rem;">
           <a href="index.html" style="text-decoration: none; color: red; font-weight: 500; display: flex; align-items: center; gap: 10px;">
             <span style="width: 25px; text-align: center;">🚪</span> Logout
@@ -71,6 +76,7 @@
     </div>
     
     <div class="content-area">
+      <div id="main-admin-content">
       <h2 style="color: #333; margin-bottom: 1rem;">Submitted Applications</h2>
       <table>
         <tr><th>Applicant Name</th><th>Type</th><th>Dog Requested</th><th>Date</th><th>Action</th></tr>
@@ -153,12 +159,64 @@
           <tr><td colspan="3">Loading dogs...</td></tr>
         </tbody>
       </table>
+      </div> <!-- End main-admin-content -->
+
+      <div id="settings-section" style="display: none;">
+        <h2 style="color: #333; margin-bottom: 1rem;">⚙️ Site Settings</h2>
+        <p style="color: #666; margin-bottom: 2rem;">Update your Rescue Name, Mission Statement, and Contact Info.</p>
+        
+        <div style="background: #f8fafc; padding: 2rem; border-radius: 10px; border: 1px solid #e2e8f0; max-width: 600px;">
+          <form id="settings-form" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <label style="font-weight: bold; color: #333;">Rescue Name</label><br>
+              <input type="text" id="settingsName" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px;" required>
+            </div>
+            <div>
+              <label style="font-weight: bold; color: #333;">Mission Statement</label><br>
+              <textarea id="settingsMission" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px; min-height: 100px;" required></textarea>
+            </div>
+            <button type="submit" id="saveSettingsBtn" class="btn btn-primary" style="margin-top: 1.5rem; padding: 1rem; border: none; cursor: pointer;">Save Settings</button>
+            <button type="button" onclick="document.getElementById('settings-section').style.display='none'; document.getElementById('main-admin-content').style.display='block';" style="margin-top: 1rem; padding: 1rem; background: #ccc; border: none; cursor: pointer; border-radius: 5px;">Back to Dashboard</button>
+          </form>
+        </div>
+      </div>
 
     </div>
   </div>
 
   <script type="module">
-    import { db, storage, collection, addDoc, getDocs, updateDoc, doc, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
+    import { db, storage, collection, addDoc, getDocs, updateDoc, doc, setDoc, getDoc, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
+
+    // Load Settings
+    async function loadSettings() {
+      const docRef = doc(db, "site_config", "main");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById('settingsName').value = data.rescueName || "";
+        document.getElementById('settingsMission').value = data.missionStatement || "";
+      }
+    }
+    loadSettings();
+
+    // Handle Settings Form Submission
+    document.getElementById('settings-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('saveSettingsBtn');
+      btn.innerText = "Saving...";
+      
+      try {
+        await updateDoc(doc(db, "site_config", "main"), {
+          rescueName: document.getElementById('settingsName').value,
+          missionStatement: document.getElementById('settingsMission').value
+        });
+        alert("Settings saved successfully!");
+      } catch(err) {
+        console.error(err);
+        alert("Error saving settings.");
+      }
+      btn.innerText = "Save Settings";
+    });
 
     // Fetch and display dogs in the manage table
     async function loadDogsTable() {
