@@ -275,9 +275,9 @@
          return;
       }
 
-      querySnapshot.forEach((document) => {
-        const dog = document.data();
-        const dogId = document.id;
+      querySnapshot.forEach((docSnap) => {
+        const dog = docSnap.data();
+        const dogId = docSnap.id;
         const isHidden = dog.hidden || false;
         
         const tr = document.createElement('tr');
