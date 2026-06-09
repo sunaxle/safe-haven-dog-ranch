@@ -1,3 +1,5 @@
+[[money]]
+
 # Firebase Security Rules Specification
 
 This document outlines the security rules for Cloud Firestore and Cloud Storage. We utilize Firebase Authentication Custom Claims or user document lookups to define `admin` privileges. For simplicity and reduced database reads, it is recommended to set a custom claim `admin: true` for staff users.

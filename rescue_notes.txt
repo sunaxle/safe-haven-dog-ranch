@@ -1,3 +1,5 @@
+[[money]]
+
 # Dump your iMessage notes, comments, and text here!
 # Don't worry about formatting, the AI will clean it up later.
 

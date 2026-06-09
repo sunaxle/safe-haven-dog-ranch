@@ -1,3 +1,5 @@
+[[money]]
+
 # The Monthly Paws Newsletter - Template
 
 **Subject Line Ideas:**

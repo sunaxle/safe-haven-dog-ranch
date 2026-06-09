@@ -1,3 +1,5 @@
+[[money]]
+
 # Welcome to Safe Haven Dog Ranch! 🐾
 
 **Subject Line Options:**

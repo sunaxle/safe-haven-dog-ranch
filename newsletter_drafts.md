@@ -1,3 +1,5 @@
+[[money]]
+
 # June 2026: A Summer of Second Chances
 
 Dear Safe Haven Family,

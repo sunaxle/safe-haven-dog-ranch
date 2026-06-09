@@ -1,3 +1,5 @@
+[[money]]
+
 # Rescue Strategy & Priorities - Summer 2026 through Winter 2027
 
 ## High-Level Summary of Recent Updates

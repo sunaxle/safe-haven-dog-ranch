@@ -1,3 +1,5 @@
+[[money]]
+
 # Developer Log
 - Initialized developer log.
 - Looking for PROJECT_BOARD.md to begin tasks. (Not found)

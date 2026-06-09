@@ -1,3 +1,5 @@
+[[money]]
+
 # Firestore Database Schema
 
 The database relies on three main collections at the root level: `users`, `dogs`, and `applications`.

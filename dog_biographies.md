@@ -1,3 +1,5 @@
+[[money]]
+
 # New Arrivals - June 2026
 
 ## Barnaby

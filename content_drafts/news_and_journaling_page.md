@@ -1,3 +1,5 @@
+[[money]]
+
 # Structure & Draft Copy: "News & Journaling" Page
 
 ## Page Structure Overview

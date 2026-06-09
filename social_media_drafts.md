@@ -1,3 +1,5 @@
+[[money]]
+
 # Social Media Drafts
 
 ## Buster (Terrier Mix)

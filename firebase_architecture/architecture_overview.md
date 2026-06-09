@@ -1,3 +1,5 @@
+[[money]]
+
 # Safe Haven Dog Ranch - Automatic Adoption Portal Architecture
 
 ## Overview

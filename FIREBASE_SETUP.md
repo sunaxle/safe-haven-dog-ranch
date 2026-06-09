@@ -1,3 +1,5 @@
+[[money]]
+
 # Phase 3: Firebase Backend Setup
 
 This document is for the volunteer web developer. Antigravity has built the UI for the Admin Dashboard (`admin.html`) and drafted the Cloud Functions (`functions/index.js`) required for email notifications and weekly summaries.

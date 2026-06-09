@@ -1,3 +1,5 @@
+[[money]]
+
 # Safe Haven Dog Ranch - Developer Onboarding
 
 Welcome to the Safe Haven Dog Ranch web project! This codebase has been structured so that it can be seamlessly updated and managed by Google Antigravity AI Agents.

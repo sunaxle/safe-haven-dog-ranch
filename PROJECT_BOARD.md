@@ -1,3 +1,5 @@
+[[money]]
+
 # Project Board
 
 ## Features to Track
