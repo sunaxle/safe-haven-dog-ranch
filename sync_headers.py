@@ -12,7 +12,6 @@ MASTER_HEADER = """  <header>
         <ul class="nav-links">
           <li><a href="adopt.html">Adopt</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="success-stories.html">Success Stories</a></li>
           <li><a href="volunteer.html">Volunteer</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
