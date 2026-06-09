@@ -1,0 +1,6 @@
+[build]
+  # Override the default npm run build since this is a plain HTML site
+  command = "echo 'No build required for this static site'"
+  
+  # Serve the root directory directly
+  publish = "."
